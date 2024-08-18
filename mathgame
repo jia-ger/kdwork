@@ -1,0 +1,21 @@
+#include <stdio.h>
+int num1, num2=5;
+int main() {
+    while (1) {  // 无限循环，直到两个数相等
+        // 提示用户输入两个整数
+        printf("请输入一个整数: ");
+        scanf_s("%d", &num1);
+        // 比较两个数
+        if (num1 == num2) {
+            printf("两个数相等！程序退出。\n");
+            break;  // 跳出循环，结束程序
+        }
+        else if (num1 > num2) {
+            printf("数大啦，请再试一次。\n");
+        }
+        else
+            printf("数小啦，请再试一次。\n");
+    }
+
+    return 0;
+}
