@@ -1,2 +1,16 @@
 异或运算规律（牛客练题总结）
 a^b=c --a=b^c--b=a^c  a^a=0 a^0=a
+99乘法表
+#include <stdio.h>
+int main() 
+{
+	int a,b;
+	for (a = 1; a <= 9; a++)
+	{
+		
+		for (b = 1; b <= a; b++)
+			printf("%6d", a * b);
+		printf("\n");
+	}
+	return 0;
+}
