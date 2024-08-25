@@ -6,7 +6,7 @@
 对于每组数据，输出一个结果，表示a的b次方mod p的值。
 每个结果占一行。
 
-题解
+题解（不是最优解，暴力解法，当b过大，会导致数据溢出无法实现）
 #include <stdio.h>
 int jia(int a, int b,int c)
 {
