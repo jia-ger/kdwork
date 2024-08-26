@@ -49,14 +49,14 @@ int solve()
 			scanf("%d", &x[i][j]);
 	for (int i = 1; i <= n; i++)
 		for (int j = 1; j <= m; j++)
-			ans[i][j] = max(ans[i][j - 1] + x[i][j], ans[i - 1][j] + x[i][j]);
+			ans[i][j] = max(ans[i][j - 1] + x[i][j], ans[i - 1][j] + x[i][j]);//ans是到当前区域总和最大值
 	return ans[n][m];
 }
 int main()
 {
 	int t;
 	scanf("%d", &t);
-	while (t--)
+	while (t--)//t为几就循环几次
 	{
 		printf("%d", solve());
 	}
