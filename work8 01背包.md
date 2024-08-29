@@ -34,7 +34,7 @@ int max(int a,int b)
 }
 int solve()
 {
-	
+	ans[0][0]=0;
 	for (int i = 1; i <= N; i++)
 	{   
 		scanf("%d%d", &v[i], &w[i]);
