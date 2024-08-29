@@ -23,7 +23,7 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include <stdio.h>
 int N, V;
-const int Q = 110;
+const int Q = 1010;
 int v[Q], w[Q];
 int ans[Q][Q];
 int max(int a,int b)
