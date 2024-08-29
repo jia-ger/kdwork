@@ -19,9 +19,9 @@ int solve()
 	}
 	for (int i = 1; i <= N; i++)
 		for (int j = V; j >=v[i]; j--)//这里采用逆序是因为逆序 ans[j - v[i]]相当于ans[i-1][j-v[i]]如果是顺序则认为是ans[i][j-v[i]]
-			if (v[i] < j) ans[i] = max(ans[j], ans[j - v[i]] + w[i]);
-			else if (v[i] == j) ans[i][j] = max(w[i], ans[j]);
-			else if (v[i] > j)ans[i][j] = ans[j];
+			if (v[i] < j) ans[j] = max(ans[j], ans[j - v[i]] + w[i]);//这里懒得删了，按道理来说根本不用if判断，因为背包体积按从大到小来的，肯定能输出结果，背包小啦不满足要求直接不在循环里考虑
+			else if (v[i] == j) ans[j] = max(w[i], ans[j]);
+			else if (v[i] > j)ans[j] = ans[j];
 
 				return ans[V];
 }
