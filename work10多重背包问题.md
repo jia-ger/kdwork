@@ -1,7 +1,7 @@
 //相当于01背包变形，只需要多加一组循环就行
 
 #include<stdio.h>
-#include<algorithm>
+#include<algorithm>//c++ stl中的函数有max
 int N,V;
 const int Q=110;
 int v[Q],w[Q],s[Q];
@@ -14,7 +14,7 @@ int solve()
     for(int i=1;i<=N;i++)
     for(int j=V  ;j>=0   ;j--)
     for(int k=0 ;k<=s[i]&& k*v[i]<=j    ;k++)
-    ans[i][j]=std::max(ans[i][j],ans[i-1][j-k*v[i]]+k*w[i]);
+    ans[i][j]=std::max(ans[i][j],ans[i-1][j-k*v[i]]+k*w[i]);//如果不想输入std::max 可以在前面声明using std::max;
     
     return ans[N][V];
     
