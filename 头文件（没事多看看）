@@ -1,0 +1,4 @@
+#include<stdio.h>==#include<cstdio>//printf scanf函数
+#include<algorithm>//可以使用max函数  std::max()
+using namespace std;//可以直接用max不用输std::
+#include <iostream>//cin cout函数不过也得是std::cin>>a>>b;std::cout<<a<<b;
