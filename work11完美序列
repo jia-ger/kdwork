@@ -1,0 +1,57 @@
+给定一个正整数序列和一个正整数 p
+。
+
+如果 M≤m×p
+ 成立，则该序列被称为完美序列，其中 M
+ 和 m
+ 分别是序列中的最大和最小数。
+
+现在给定一个序列和一个参数 p
+，你应该从序列中找到尽可能多的数字以构成一个完美的子序列。
+输入格式
+第一行包含两个整数 N
+ 和 p第二行包含 N 个正整数，表示给定序列。
+输出格式
+输出最多可以选择多少个数，构成一个完美子序列。
+
+数据范围
+1≤N≤105
+,
+1≤p≤109
+,
+序列中的元素均不超过 109
+。
+
+输入样例：
+10 8
+2 3 20 4 5 1 6 7 8 9
+输出样例：
+8
+
+
+
+
+
+
+
+
+题解
+#include<stdio.h>
+#include<algorithm>
+using namespace std;
+long long N,p;
+const int Q=100010;
+long long x[Q];
+int main()
+{
+    scanf("%lld%lld",&N,&p);
+    for(int i=0;i<N;i++)
+    scanf("%lld",&x[i]);
+    sort(x,x+N);
+    int result;
+    for(int i=0, j=0;i<N;i++)
+   {while(j<N&&x[i]>x[j]*p) j++;
+    result=max(result,i-j+1);}
+    printf("%d",result);
+    return 0;
+}
