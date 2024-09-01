@@ -2,3 +2,4 @@
 #include<algorithm>//可以使用max,min,sort函数  std::max() sort函数默认升序排序
 using namespace std;//可以直接用max不用输std::
 #include <iostream>//cin cout函数不过也得是std::cin>>a>>b;std::cout<<a<<b;
+#include<cmath>//可以使用pow函数pow（a,b）即a的b次方
