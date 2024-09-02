@@ -1,0 +1,24 @@
+读取四个整数 A,B,C,D，用来表示游戏的开始时间和结束时间。其中 A 和 B为开始时刻的小时和分钟数，C和 D为结束时刻的小时和分钟数。
+请你计算游戏的持续时间。比赛最短持续 1分钟，最长持续 24 小时。
+输入格式共一行，包含四个整数 A,B,C,D
+输出格式为 O JOGO DUROU X HORA(S) E Y MINUTO(S)，表示游戏共持续了 X 小时 Y 分钟。
+数据范围0≤A,C≤23,0≤B,D≤59
+
+题解
+#include<cstdio>
+int main()
+{
+    int a,b,c,d,x,y;
+    scanf("%d%d%d%d",&a,&b,&c,&d);
+    if(a==c&&b==d) x=24,y=0;
+    else if(a>c&&b<d) x=24-a+c, y=d-b;
+    else if(a>c&&b==d)x=24-a+c,y=0;
+    else if(a>c&&b>d)x=23-a+c,y=60-b+d;
+    else if(a==c&&b>d)x=23,y=60-b+d;
+    else if(a==c&&b<d)x=0,y=d-b;
+    else if(a<c&&b>d)x=c-a-1,y=60-b+d;
+    else if(a<c&&b==d)x=c-a,y=0;
+    else if(a<c&&b<d)x=c-a,y=d-b;
+    printf("O JOGO DUROU %d HORA(S) E %d MINUTO(S)",x,y);
+    return 0;
+}
