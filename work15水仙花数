@@ -1,0 +1,34 @@
+链接：https://ac.nowcoder.com/acm/problem/14386
+来源：牛客网
+水仙花数是指一个N位正整数（N≥3），它的每个位上的数字的N次幂之和等于它本身。
+例如：153=1^3+5^3+3^3。
+8208 = 8^4+2^4+0^4+8^4
+这道题请写出程序判断输入的数是否为水仙花数
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{
+    int n,len,sum,i;
+    char str[100];
+    scanf("%d",&n);
+    while(n--)
+    {
+        sum=0;
+        scanf("%s",&str);
+        len = strlen(str);
+        for(i=0;i<len;i++)
+        {
+            sum+=pow(str[i] - '0',len);//这里str的数字字符在计算机中是对应ASCII码值，所以要减去一个'0'才输出的是对应的数字
+        }
+        if(sum==atoi(str))//atoi函数使单独字符变成整体
+        {
+            printf("yes\n");
+        }
+        else{
+            printf("no\n");
+        }
+    }
+    return 0 ;
+}
