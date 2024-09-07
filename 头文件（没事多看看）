@@ -3,3 +3,5 @@
 using namespace std;//可以直接用max不用输std::
 #include <iostream>//cin cout函数不过也得是std::cin>>a>>b;std::cout<<a<<b;
 #include<cmath>//可以使用pow函数pow（a,b）即a的b次方
+sqrt()//用于计算平方根   cbrt（）//用于计算立方根
+万能头文件#include<bits/stdc++.h>  //非常好用，只会影响编译时间，不会影响运行时间
