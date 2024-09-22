@@ -1,0 +1,23 @@
+对于给定的未知多边形的面积，请你判断这是一个以整数为边长的正方形、或是以整数为边长的等边三角形、或是两者均是、或是两者均不是。
+输入描述:每个测试文件均包含多组测试数据。第一行输入一个整数T (1≤T≤10 
+5) 代表数据组数，每组测试数据描述如下：在一行上输入一个整数s (1≤s≤10^9
+ ) 代表未知多边形的面积。
+输出描述:对于每一组测试数据，在一行上输出一个整数，代表未知多边形的种类。其中 0 代表正方形、1代表等边三角形、2 代表两者都有可能、3 代表两者均不可能。
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+int main()
+{   int t;cin >> t;
+    while(t--)
+{    int a;cin >> a;
+     if(pow(floor(sqrt(a)+0.5),2)==a&&pow(floor(sqrt(4*a/sqrt(3))+0.5),2)/4*sqrt(3)==a)
+    cout<<2<<endl;
+    else if(pow(floor(sqrt(a)+0.5),2)==a&&pow(floor(sqrt(4*a/sqrt(3))+0.5),2)/4*sqrt(3)!=a)
+    cout<<0<<endl;
+    else if(pow(floor(sqrt(a)+0.5),2)!=a&&pow(floor(sqrt(4*a/sqrt(3))+0.5),2)/4*sqrt(3)==a)
+    cout<<1<<endl;
+    else cout<<3<<endl;
+}
+    return 0;
+}
