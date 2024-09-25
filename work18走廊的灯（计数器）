@@ -1,0 +1,30 @@
+走廊里一共有一排共 n 盏灯，其中有的灯是灭的，用 0 表示，有的灯是亮的，用 1 表示，还有的灯是闪烁的，用 2 表示
+最长有多少盏连续的灯不包含亮着的灯或不包含灭了的灯（满足任意一个即可）？
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+#define N 1000000
+int main()
+{
+    char s[N];
+    int t;cin>>t;
+    while(t--)
+    {int n;cin>>n;cin>>s;
+     int count=0;int x=0;   
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='0'||s[i]=='2')
+            {count++;x=max(x,count);}
+            else {x=max(x,count);count=0;}
+        }  
+      int cont=0;int y=0;
+        for(int i=0;i<n;i++)
+        {
+            if(s[i]=='1'||s[i]=='2'){cont++;y=max(y,cont);}
+            else {y=max(y,cont);cont=0;}
+        }
+     x=max(x,y);cout<<x<<endl;
+    }   
+    return 0;
+}
