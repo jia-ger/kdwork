@@ -1,0 +1,46 @@
+Baijiaohu有两个长度均为 n 且不包含前导零的数字 ,a,b ，现在他可以对这两个数字进行任意次操作：选择一个整数 并交换 ,
+a,b 的第 i 位 。请输出任意次操作后 a×b 的最小值，由于答案可能很大，请对 998244353 取模
+
+我的题解
+#include<bits/stdc++.h>
+using namespace std;
+const long long N=998244353;
+int main()
+{
+    long long n;cin>>n;
+    string a,b;
+    cin>>a;
+    cin>>b;
+    int m=a.size();
+    for(int i=0;i<m;i++)
+    if(a[i]>b[i])swap(a[i],b[i]);//可以直接交换两个数
+    long long  j=atol(a.c_str())%N;//才知道c++中的string无法使用atoi，atoi是c中的函数
+    long long  k=atol(b.c_str())%N; //必须将string转化成c中字符串类型才能用， c_str()相当于一个临时指针可以起这个作用
+    long long ans=(j%N)*(k%N)%N;
+    cout<<ans;      
+    return 0;
+}
+
+标准题解
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll Mod = 998244353;
+ll ans, n;
+ll x, y;
+string a, b;
+// 性质：当两个数的和相等时, 两个数的差越大，乘积越小
+int main()
+{
+    cin >> n >> a >> b;
+    int m = a.size();
+    for(int i = 0; i < m; i++)
+    {
+        if(a[i] < b[i]) swap(a[i], b[i]);
+        x = (x * 10 + (a[i] - '0')) % Mod;
+        y = (y * 10 + (b[i] - '0')) % Mod;
+    }
+    ans = x * y % Mod;
+    cout << ans;
+    return 0;
+}
