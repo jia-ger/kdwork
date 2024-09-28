@@ -1,0 +1,31 @@
+链接：https://ac.nowcoder.com/acm/contest/91435/1017
+来源：牛客网
+进行 T 次询问，每次询问给定一个数 a i ，他想让你找到斐波那契数列中距离 
+a i最近的一项，即求一个正整数 x 使得在满足 |Fx-a|最小的基础上 x 尽量小
+
+【【C++】 详解 lower_bound 和 upper_bound 函数（看不懂来捶我！！！）】https://mbd.baidu.com/ma/s/je2CX1VQ
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    long long t;
+    const long long l=90;
+    long long f[100];
+    long long a;
+    f[1]=1,f[2]=1;
+    for(long long i=3;i<=l;i++)
+    {
+        f[i]=f[i-1]+f[i-2];
+    }
+    cin>>t;
+    while(t--)
+    {
+        cin>>a;
+        long long pos=lower_bound(f+1,f+l+1,a)-f;//查询大于等于a的第一个数
+        cout << (abs(f[pos]-a)<abs(f[pos-1]-a)?pos:pos-1) <<endl;
+    }
+    return 0;
+}
