@@ -1,0 +1,23 @@
+链接：https://ac.nowcoder.com/acm/contest/91435/1022
+来源：牛客网
+牛牛面前有一个由n 个整数组成的数组 𝐴1,𝐴2...,𝐴𝑛牛牛打算对这个数组进行若干次操作。每次操作牛牛可以选择 A n  中的任意一个非负整数，记所选数的下标为 𝑘
+然后牛牛会把 𝐴𝑘,𝐴𝑘+1,..,𝐴𝑛都减少𝐴𝑘牛牛想知道他对这个数组进行恰好 m 次操作后，数组中所有数的和最少是多少
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+
+int main(){
+  int T; cin >> T;
+  while (T--) {
+    int n, m; cin >> n >> m;
+    vector<int64_t> A(n); for (auto &x: A) cin >> x;
+    int64_t sum = accumulate(A.begin(), A.end(), 0l);
+    vector<int64_t> B;
+    for (int i = 0; i < n; i++) if (A[i]>=0) B.push_back(A[i]*(n-i));
+    sort(B.begin(), B.end(), greater<>());
+    for (int i = 0; i < m && i < B.size(); i++) sum -= B[i];
+    cout << sum << endl;
+  }
+  
+}
