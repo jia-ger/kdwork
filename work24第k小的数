@@ -1,0 +1,26 @@
+链接：https://ac.nowcoder.com/acm/contest/91435/1024来源：牛客网
+集合中一开始拥有两个数字 a 和 𝑏，如果 𝑎与 b 相同，那么仅有一个数字。
+小沙每次可以选择集合中的两个数（可以相同）,将他们的和放入集合中，请问所有可能的集合中，第 K 小的值最小为多少？
+注：集合中相同元素只能有一个。
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ll k,a,b;
+int main()
+{
+    cin>>k>>a>>b;
+    set<ll>q;
+    q.insert(a),q.insert(b);
+    ll t;
+    while(k--)
+    {
+        t=*q.begin();
+        q.insert(t+a);q.insert(t+b);
+        q.erase(t);
+    }
+    cout<<t;
+    return 0;
+}
+ 
