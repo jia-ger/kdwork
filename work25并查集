@@ -1,0 +1,26 @@
+树的思想
+第一行包含两个整数 N,M表示共有 N 个元素和 M 个操作。接下来 M 行，每行包含三个整数 Zi,Xi ,Yi当Zi​=1 时，将 Xi与 Yi所在的集合合并。
+当 Zi=2时，输出 Xi与 Yi 是否在同一集合内，是的输出 Y ；否则输出 N
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+int f[50010];
+int find(int n)
+{
+	if(f[n]!=n)f[n]=find(f[n]);
+	return f[n];
+ } 
+int main()
+{int n,m,z,x,y;cin>>n>>m;
+  for(int i=1;i<=n;i++)
+   f[i]=i;
+  while(m--)
+  {cin>>z>>x>>y;
+  	if(z==1)f[find(x)]=find(y);
+  	else 
+  	 if(find(x)==find(y))cout<<"Y"<<endl;
+  	 else cout<<"N"<<endl;
+  }
+return 0;
+}
