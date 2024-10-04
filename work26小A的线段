@@ -1,0 +1,45 @@
+https://blog.csdn.net/Supreme7/article/details/115431235  memset函数用法
+链接：https://ac.nowcoder.com/acm/problem/268812
+在一个标有 1−𝑛的数轴上给定 m 条线段，第 i 个线段的左右端点分别为 𝑠𝑡𝑖 , 𝑒𝑑𝑖 ，求有多少种线段的选择方案可以使得数轴上的每个整数点至少被覆盖两次。
+定义两种选择方案不同当且仅当至少有一个线段在两种方案中的状态（选/不选）不同。
+由于方案数可能很多，所以你需要输出满足条件的方案数对 998244353 取模的结果。
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair <int ,int> pii;//关联函数
+const int N=1e5+10;
+pii arr[N];
+int ans[N];
+void slove()
+{
+    int n,m,s,e;cin>>n>>m;
+    for(int i=0;i<m;i++)
+    { cin>>s>>e;arr[i]={s,e};}
+    long long res=0;
+    for(int i=0;i<(1<<m);i++)
+ {  memset(ans,0,sizeof ans);
+       for(int j=0;j<m;j++) 
+       {
+           if(i>>j&1)
+           {ans[arr[j].first]++;
+            ans[arr[j].second+1]--;     
+           }                   
+       }
+        int flag=1;
+      for(int i=1;i<=n;i++)
+      { ans[i]+=ans[i-1];
+        if(ans[i]<2){flag=0;break;}
+      }
+      if(flag==1)res++; 
+   
+ }
+    cout<<res;
+    
+}
+int main()
+{
+    
+    slove();
+    return 0;
+}
