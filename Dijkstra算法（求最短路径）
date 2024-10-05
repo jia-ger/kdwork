@@ -1,0 +1,18 @@
+#define INF 0x3f3f3f3f
+void dijkstra(int s)//求源点s到其他点的最短路径
+{  memset(vis,0,sizeof(vis));//0表示未确定的点，1表示已经确定的
+   memset(dis,0x3f,sizeof(dis));//默认情况下设置无穷大
+   dis[s]=0；
+   while(1)
+  {int mini=0,min_=INF;
+   for(int j=1;j<=n;j++)
+   {
+    if(!vis[j]&&min_>dis[j])
+    {mini=j;min_=dis[j];}
+   }     
+   }//如果没有未确定的点则结束
+    if(mini==0)break;
+    vis[mini]=1;
+   for()
+}
+懒啦！弄懂再写~~
