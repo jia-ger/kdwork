@@ -24,7 +24,7 @@ int main()
     while(t--)
     {
         cin>>a;
-        long long pos=lower_bound(f+1,f+l+1,a)-f;//查询大于等于a的第一个数
+        long long pos=lower_bound(f+1,f+l+1,a)-f;//查询大于等于a的第一个数的下标 *pos才为对应的值
         cout << (abs(f[pos]-a)<abs(f[pos-1]-a)?pos:pos-1) <<endl;
     }
     return 0;
