@@ -1,0 +1,57 @@
+链接：https://ac.nowcoder.com/acm/contest/91443/E
+当时钟显示的时间满足对称形式时，时钟会发出一道美丽的光芒。对称： 小时和分钟所显示的数字以冒号为轴对称图形，例如 13:31 是一个对称形式，00:00 和 03:30也是一个对称形式，但 12:12 不是一个对称形式。
+给出你当前的时间，判断距离下一次发光需要等待多少分钟，输出下一次发光时间和等待的分钟数。
+
+题解
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+bool is_palindrome_time(int h, int m) {
+    // 使用整数取位数，避免字符串处理
+    return (h / 10 == m % 10) && (h % 10 == m / 10);
+}
+
+void next_palindrome_time(int h, int m, string &next_time, int &minutes_waited) {
+    minutes_waited = 0;
+
+    while (true) {
+        if (is_palindrome_time(h, m)) {
+            next_time = (h < 10 ? "0" : "") + to_string(h) + ":" + (m < 10 ? "0" : "") + to_string(m);
+            return;
+        }
+
+        // 增加一分钟
+        m++;
+        if (m == 60) {
+            m = 0;
+            h++;
+            if (h == 24) {
+                h = 0;
+            }
+        }
+        minutes_waited++;
+    }
+}
+
+int main() {
+    int t;
+    cin >> t;
+
+    for (int i = 0; i < t; i++) {
+        int h, m;
+        char colon; // 用于读取冒号
+        cin >> h >> colon >> m;
+
+        string next_time;
+        int minutes_waited;
+
+        next_palindrome_time(h, m, next_time, minutes_waited);
+
+        cout << next_time << endl;
+        cout << minutes_waited << endl;
+    }
+
+    return 0;
+}
