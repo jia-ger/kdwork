@@ -1,0 +1,50 @@
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+long long cds,rig=0,kpm,cd=0;
+double t;
+char s[100005];
+stack<char>s1,s2;
+int main(){
+    while(1){
+        gets(s);
+        cds=strlen(s);
+        if(cds==3&&s[0]=='E'&&s[1]=='O'&&s[2]=='F')break;
+        for(int i=0;i<cds;i++)
+		{
+		if(s[i]=='<'&&i!=0)s1.pop();   
+        else if((s[i]>='a'&&s[i]<='z')||s[i]==' '||s[i]=='.')s1.push(s[i]);
+        }
+        
+    }
+    while(1){
+        gets(s);
+        cds=strlen(s);
+        if(cds==3&&s[0]=='E'&&s[1]=='O'&&s[2]=='F')break;
+     
+        for(int i=0;i<cds;i++){
+            if(s[i]=='<'&&i!=0)s2.pop();
+            else if((s[i]>='a'&&s[i]<='z')||s[i]==' '||s[i]=='.')s2.push(s[i]);
+        }
+    }
+        stack<char>t1,t2;
+        while(s1.empty()==0){
+        	t1.push(s1.top());
+        	s1.pop();
+		}
+		while(s2.empty()==0){
+			t2.push(s2.top());
+			s2.pop();
+		}
+		cds=min(t1.size(),t2.size());
+        for(int i=1;i<=cds;i++){
+            if(t1.top()==t2.top())rig++;
+            t1.pop();
+            t2.pop();
+        }  
+    cin>>t;
+    kpm=rig*60.0/t+0.5;
+    cout<<kpm<<endl;
+    return 0;
+}
