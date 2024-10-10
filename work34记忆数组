@@ -1,0 +1,26 @@
+现在，给你一个模数 M，请你求出最小的 n>0使得 fib(n) mod M=0,fib(n+1)modM=1
+
+题解
+#include<cstdio>
+typedef long long ll;
+using namespace std;
+const ll INF=0x7fffffff;
+ll fp[3000000];//记忆数组，虽然m不大但是不知道n多大，尽量开大，不过1千万差不多极限
+ll m;
+ll f(ll i)
+{
+    if(fp[i])return fp[i];//调取记忆
+    if(i==1||i==2)return fp[i]=1%m;
+    else return fp[i]=(f(i-1)+f(i-2))%m;//这时就顺带%m可以使主程序更简单
+}
+int main()
+{
+    scanf("%lld",&m);
+    ll i=1;//枚举
+    while(f(i)!=0||f(i+1)!=1)//题目要求
+    {
+        i++;
+    }
+    printf("%lld",i);
+    return 0;
+}
