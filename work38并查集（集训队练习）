@@ -1,0 +1,46 @@
+给定一个包含 n个点（编号为 1∼n）的无向图，初始时图中没有边。现在要进行 m 个操作，操作共有三种：C a b，在点 a 和点 b
+之间连一条边，a 和 b可能相等；Q1 a b，询问点 a 和点 b 是否在同一个连通块中，a 和 b可能相等；Q2 a，询问点 a所在连通块中点的数量；
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+const int N=1e5+2;
+int f[N],a1[N];
+int find(int n)
+{
+	if(f[n]!=n)f[n]=find(f[n]); 
+	return f[n];
+	
+ } 
+int main()
+{   int n,m;cin>>n>>m;
+    for(int i=1;i<=n;i++)
+    f[i]=i;
+    for(int i=1;i<=n;i++)
+    a1[i]=1;
+    while(m--)
+   {string a;
+     cin>>a;
+   	if(a=="C")
+   	{
+   	int b,c;
+   	cin>>b>>c;
+    if(find(b)==find(c))continue;
+    a1[find(c)]+=a1[find(b)];
+    f[find(b)]=find(c);
+   	}
+   	else if(a=="Q1")
+   	{   int b,c;
+   	cin>>b>>c;
+	   if(find(b)==find(c))cout<<"Yes"<<endl;
+   		
+   		else cout<<"No"<<endl;
+	   }
+   	else 
+   	{ int x;cin>>x;
+   		cout<<a1[find(x)]<<endl; 	 }
+   	
+   }
+	
+    return 0;
+}
