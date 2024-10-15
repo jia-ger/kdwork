@@ -1,0 +1,50 @@
+给出 A 地区的村庄数 N，和公路数 M，公路是双向的。并告诉你每条公路的连着哪两个村庄，并告诉你什么时候能修完这条公路。
+问最早什么时候任意两个村庄能够通车，即最早什么时候任意两条村庄都存在至少一条修复完成的道路（可以由多条公路连成一条道路）。
+输入格式
+第 1行两个正整数 N,M。
+下面 M 行，每行 3 个正整数 x,y,t，告诉你这条公路连着 x,y 两个村庄，在时间 t 时能修复完成这条公路。
+输出格式
+如果全部公路修复完毕仍然存在两个村庄无法通车，则输出 −1，否则输出最早什么时候任意两个村庄能够通车。
+
+题解
+#include<bits/stdc++.h>
+using namespace std; 
+const int N=1e5+2;
+int f[N];
+int find(int n)
+{
+	if(f[n]!=n)f[n]=find(f[n]);
+	return f[n];
+	
+}
+struct cbd{
+	int x;
+	int y;
+	int t;
+}a[N];
+bool cmp(cbd a,cbd b)
+{
+	return a.t<b.t;
+}
+int main()
+{ int n,m;cin>>n>>m;
+   for(int i=1;i<=m;i++)
+   {int x,y,t;cin>>x>>y>>t;
+   	a[i].x=x;
+	a[i].y=y;  
+	a[i].t=t;
+	 	
+ 	}  
+	 for(int i=1;i<=n;i++)
+	 f[i]=i;     
+  sort(a+1,a+m+1,cmp);
+  for(int i=1;i<=m;i++)
+  { 
+  	int fx=find(a[i].x),fy=find(a[i].y);
+		if(fx!=fy)f[fx]=fy,n--;//亮点！直接判断村庄是否全部联通
+		if(n==1){cout<<a[i].t;return 0;}
+  	
+  }
+    cout<<-1;
+    return 0;
+}
