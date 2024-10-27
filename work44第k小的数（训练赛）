@@ -1,0 +1,24 @@
+一个正整数被称为 ′ 721 ′ 数 满足各个位上的数严格递减，求第 k 小的 ′ 721 ′  数。
+输入格式一行包含一整数表示 k 。
+输出格式一行包含一个整数表示第 k 小的 ′721′数  k>=1 最大的‘721’数 9876543210
+
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+#define IOS ios::sync_with_stdio(0),cin.tie(0),cout.tie(0)
+vector<long long>vec;
+void dfs(long long p,long long res) 
+{ if(p!=10)
+  vec.push_back(res);//cout<<res<<" ";}
+  for(long long i=p-1;i>=0;i--) 	
+  dfs(i,res*10+i);	
+}
+int main()
+{  IOS;
+   long long k;cin>>k;
+   dfs(10,0);
+   sort(vec.begin(),vec.end());
+   cout<<vec[k];
+	return 0;
+}
