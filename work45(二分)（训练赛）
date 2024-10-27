@@ -1,0 +1,44 @@
+有 N 个人参加 XCPC 比赛，第 i 人的交通费用为 a i​ 元活动组织者 珂朵莉 决定为交通补贴设定最高限额 
+x第 i 人的补贴将为 min(x,a i ) 元。这里x 必须是非负整数。
+假设 珂朵莉 的预算为 M 元，并且他希望所有 N 个人的交通补贴总额最多为 M 元，那么补贴限额 x 的最大可能值为多少？
+如果可以将补贴限额设为无限大，请报告该限额。
+输入格式第一行包含两个整数分别为 
+N 和 M第二行包含 N 个整数表示每一个人的交通费用 a i所有输入值均为整数
+输出格式一行包含一个整数表示最大可能的 x如果补贴限额可以无限大，则打印“infinite”//无限大意思是m大于交通费总和，所以x无限大也不影响
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+#define IOS ios::sync_with_stdio(0),cin.tie(0),cout.tie(0)
+const int N=2e5+10;
+long long a[N]={0};
+long long n,m,ans=0;
+bool cheak(long long sum)
+{   long long s=0;
+    for(int i=1;i<=n;i++)
+    s+=min(sum,a[i]);
+    
+	if(s<=m)return 1;
+	else return 0;
+	
+}
+int main()
+{  IOS;
+   cin>>n>>m;
+   for(int i=1;i<=n;i++)
+   {
+   cin>>a[i];ans+=a[i];
+   }
+   if(ans<=m)cout<<"infinite";
+   else {
+   	sort(a+1,a+n+1);
+   	long long l=0,r=a[n];
+   	while(l<r)
+   	{long long mid=(l+r+1)>>1;
+   	 if(cheak(mid))l=mid;	
+   	 else r=mid-1;		
+	}
+	   cout<<l;
+   }
+	return 0;
+}
