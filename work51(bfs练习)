@@ -1,0 +1,54 @@
+题目 ：给定一个图，问每个0离最近的1的距离，1离本身距离最近距离为0
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+char g[1010][1010];
+int  f[1010][1010]; 
+bool bj[1010][1010];
+int n,m;
+queue<pair<int,int>>q;
+void bfs()
+{
+	while(!q.empty())
+	{
+		pair<int ,int> start=q.front();
+		q.pop();
+		int dx[4]={0,1,-1,0};int dy[4]={1,0,0,-1};
+		for(int i=0;i<4;i++)
+		{   
+			int x=start.first+dx[i];int y=start.second+dy[i];
+			if(!bj[x][y]&&g[x][y]=='0')
+			{
+				bj[x][y]=true;
+				f[x][y]=f[start.first][start.second]+1;
+				q.push({x,y});
+				
+			}
+			
+		}
+		
+	}
+	
+	
+}
+int main()
+{cin>>n>>m;
+ memset(g,-1,sizeof g);
+ for(int i=1;i<=n;i++)
+ for(int j=1;j<=m;j++)
+ {
+ 	cin>>g[i][j];
+ 	if(g[i][j]=='1'){
+	 bj[i][j]=true;
+ 	q.push({i,j}); }	
+ }
+ bfs();
+ for(int i=1;i<=n;i++)
+ {
+ for(int j=1;j<=m;j++)
+  cout<<f[i][j]<<" ";
+  cout<<"\n";
+ }
+return 0;
+}
