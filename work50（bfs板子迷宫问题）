@@ -1,0 +1,48 @@
+善恶难辨需要从地图的左上角(0,0) 开始，最终到达右下角 (N-1, M-1)。地图中:
+0 表示道路，善恶难辨可以通过。
+1 表示墙壁，善恶难辨无法通行
+善恶难辨只能横着或竖着移动（不能斜着走），并且保证地图中存在一条从左上角 (0, 0) 到右下角 (N-1, M-1) 的通路。
+善恶难辨需要在不超过时间 T 的情况下到达右下角。 如果能在 T时间内完成输出 YES ,并且输出最小时间，如果不能在 T时间内完成，输出 NO。
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+typedef pair<int ,int> PII;
+int n,m,t;
+int g[35][35];//地图 
+int f[35][35];//时间 
+void bfs(int a,int b)
+{
+	queue<PII>q;
+	q.push({a,b});
+	while(!q.empty())
+	{
+		PII start=q.front();
+		q.pop();
+		int dx[4]={0,1,-1,0};int dy[4]={1,0,0,-1};
+		for(int i=0;i<4;i++)
+		{
+			int x=start.first+dx[i];int y=start.second+dy[i];
+			if(g[x][y]==0)
+			{
+				g[x][y]=1;
+				f[x][y]=f[start.first][start.second]+1;
+				q.push({x,y});
+				
+			}
+		 } 
+		
+	}
+	
+}
+int main()
+{   memset(g,1,sizeof g);
+    cin>>n>>m>>t;
+    for(int i=1;i<=n;i++)
+    for(int j=1;j<=m;j++)
+     cin>>g[i][j];
+     bfs(1,1);
+    if(f[n][m]<=t)cout<<"YES "<<f[n][m];
+    else cout<<"NO";
+	return 0;
+}
