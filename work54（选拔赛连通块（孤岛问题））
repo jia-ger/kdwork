@@ -1,0 +1,44 @@
+这组岛群共有N座岛屿，初始时共有M条航线（一条航线的含义是船只只在这一对岛屿之间往来，每对岛屿之间最多只会有一条航线），现在你可以进行如下操作来增加航线：
+如果x岛和y岛之间有一条航线，y岛和z岛之间有一条航线，但x岛和z岛之间没有航线，那么你就可以在x岛和z岛之间增设一条航线。问最多可以进行这样的操作多少次。
+输入格式 
+输入的第一行包含两个整数N，M，分别表示岛屿的数量和航线的数量。接下来的M行，每行包含两个整数u和v
+u，v表示这两座岛屿之间有一条航线（保证输入所给的航线没有重复，(u,v) 和(v,u) 也是同一条航线）。
+输出格式
+输出一行包含一个整数，表示最多可能的操作次数。
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+const int N=1e7+10;
+int f[N],vl[N];
+ int n,k;
+int find(int n)
+{
+	if(f[n]!=n)f[n]=find(f[n]);
+	return f[n];
+}
+void hebing(int x,int y)
+{
+	if(f[x]!=f[y])f[find(x)]=find(y);
+}
+signed main() {
+    //int n,k;
+	cin>>n>>k;
+	for(int i=1;i<=n;i++)
+	{
+	 f[i]=i;vl[i]=0;
+	}
+    for(int i=1;i<=k;i++)
+    { int u,v;cin>>u>>v;	  
+	  hebing(u,v);
+	  	//vl[find(v)]++;	
+	}
+	for(int i=1;i<=n;i++)
+	vl[f[find(i)]]++;
+	int ans=-k;
+	for(int i=1;i<=n;i++)
+	if(f[i])ans+=(vl[i]*(vl[i]-1)/2);
+	cout<<ans<<endl;
+    return 0;
+}
