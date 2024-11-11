@@ -1,0 +1,40 @@
+魔王拥有 N 点生命值并在每回合对小夫造成 M 点伤害。小夫有 X 点生命值和 Y 点魔法值，每回合可以同时选择近战和远程两种攻击方式。每次释放远程攻击需要消耗 
+K 点魔法值，当魔法值低于 K 时无法释放远程攻击。近战攻击和远程攻击分别对魔王造成 Q 和 E 点伤害，两种攻击方式的冷却时长都为 Z 回合。
+注：近战和远程攻击将在回合结束后陷入冷却。近战与远程攻击冷却时间相同。
+每回合由小夫先进行攻击，输出小夫打败魔王的最少回合数，如果无法打败魔王，则输出 −1。
+输入格式  第一行输入两个整数 N,M。表示魔王的生命值和每回合造成的伤害。
+第二行输入三个整数 X,Y,K。分别表示小夫的生命值，魔法值，以及每次魔法消耗值。
+第三行输入三个整数 Q,E,Z。分别表示小夫近战和远程攻击对魔王造成的伤害，以及两种攻击的冷却回合数。
+输出格式
+输出一个数字，表示小夫打败魔王的最少回合数，如果不能大败魔王，则输出 −1。
+
+题解（如果题目复杂请不要怕，孩子！注释写详细点，可能会耽误时间但绝对能写出来）
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+const int INF=0x3f3f3f3f3f3f3f3f;
+
+int ans=0;
+signed main() {
+    int n,m,x,y,k;//n血m伤害x生命y魔法k魔法消耗 
+    cin>>n>>m>>x>>y>>k;
+    int q,e,z;
+	cin>>q>>e>>z;
+	int jieshu=(int)ceil(x/m);//死亡索要回合 
+	//cout<<jieshu;
+	int nums;
+	if(k)nums=y/k;//魔法最大释放次数 
+    else nums=INF;
+    int num = (n + (q + e) - 1) / (q + e) ;//理想需要组合攻击多少次
+    int mixx=min(num,nums);//实际能达到的组合（可能受魔法值限制） 
+    int nn=n-mixx*(q+e);
+    int yu;//剩余血量纯平a所需回合 
+    if(nn>0)
+    yu=(nn+q-1)/q;
+    else yu=0;
+    ans=yu+mixx;//一直输出的回合
+	ans=ans+(ans-1)*z;//两次输出中间存在冷却 
+	if(jieshu<ans)cout<<-1;//死亡所要回合比胜利要更早达到 
+	else cout<<ans; 
+    return 0;
+}
