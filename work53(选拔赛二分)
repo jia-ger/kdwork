@@ -1,0 +1,46 @@
+一共有 N 个篮子，编号分别为 1,2,…,N ，这些篮子围成一个圈。在篮子编号 1≤i≤N−1 中，篮子 i+1 在篮子 i 的右边，篮子 
+1 在篮子 N 的右边。编号为 i 的篮子中有 A i 个蘑菇。你现在从编号为 1 的篮子开始，重复下面的操作。
+如果你面前的篮子里有蘑菇，就拿一个吃掉。然后，不管你现在是否吃了一个蘑菇，都要继续走到右边的下一个篮子前。当你总共吃了 
+K 个蘑菇时，求每个篮子中剩余蘑菇的个数。
+输入格式 输入共两行：第一行两个正整数 N 和 K，分别表示篮子的数量和你总共吃掉的蘑菇数量；
+第二行共 N 个数，第 i 个数 A i​  表示第 i 个篮子内的蘑菇数量。
+输出格式 输出 N 个整数，中间用空格隔开。当你一共吃了 K 个蘑菇时， i 个整数表示篮子 i 中剩余蘑菇的数量。
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+int a[100100];
+int n,k;
+int cheak(int num)
+{
+	int ans=0;
+	for(int i=1;i<=n;i++)
+	ans+=min(num,a[i]);
+	return ans<=k;
+} 
+signed main() {
+    //int n,k;
+	cin>>n>>k;
+    for(int i=1;i<=n;i++)
+    scanf("%lld",&a[i]);
+    int l=0,r=1e12;
+    while(l<r)
+    { int mid=(l+r+1)/2;
+    	if(cheak(mid))l=mid;
+    	else r=mid-1;  	
+	}
+	for(int i=1;i<=n;i++)
+	{   int t=min(l,a[i]);
+		a[i]-=t;
+		k-=t;
+	}
+	for(int i=1;k!=0;i++)
+	{
+		if(a[i])
+		--a[i],--k;
+	}
+	for(int i=1;i<=n;++i) 
+       cout<<a[i]<<" "; //printf("%lld ",a[i]);
+    return 0;
+}
