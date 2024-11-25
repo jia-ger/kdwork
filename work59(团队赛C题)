@@ -1,0 +1,52 @@
+链接：https://ac.nowcoder.com/acm/contest/97238/C
+来源：牛客网
+小红有一张 n 个点 m 条边的无向图，每个节点的权值是 a i​现在小红希望加边把这个图连成连通图，每次连接的代价是新形成的联通块的最大元素值，小红想知道最小需要消耗多少代价可以把这个图连成连通的。
+输入描述:
+第一行输入两个整数n 和 𝑚 (1≤n≤10^5 ; 0≤m≤10 ^5 ) 表示点数和边数。 
+第二行输入 n 个整数 表示每个节点的权值。接下来 m 行，第 i 行输入两个整数 u i  和 𝑣𝑖
+𝑣 表示无向图上第 i 条边连接节点 𝑢𝑖 和 v i ，保证没有重边。
+
+题解
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int 
+#define int long long
+const int N=100010;
+int f[N],q[N];
+int find(int x){
+    if(f[x]!=x)f[x]=find(f[x]);
+    return f[x];
+}
+signed main(){
+   
+    int n,m;
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        cin>>q[i];
+        f[i]=i;
+    }
+    for(int i=0;i<m;i++){
+        int a,b;
+        cin>>a>>b;
+        int fa=find(a),fb=find(b);
+        if(fa!=fb){
+            f[fb]=fa;
+            q[fa]=max(q[fa],q[fb]);
+        }
+    }
+    int ans=0;
+    int min_q=1e9+10;
+    for(int i=1;i<=n;i++){
+        if(find(i)==i){
+            min_q=min(q[i],min_q);
+        }
+    }
+    for(int i=1;i<=n;i++){
+        if(find(i)==i){
+            ans+=q[i];
+        }
+    }
+    cout<<ans-min_q;
+    return 0;
+}
