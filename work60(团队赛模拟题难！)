@@ -1,0 +1,73 @@
+https://ac.nowcoder.com/acm/contest/97238/D
+
+题解
+#include "bits/stdc++.h"
+using namespace std;
+#define int long long
+const int N=200010;
+int a[N];
+void solve(){
+    int n,p;
+    cin>>n>>p;
+    for(int i=1;i<=n;i++){
+        cin>>a[i];
+    }
+    int l,r,ll=0,rr=0,al=0,ar=0;
+     a[p]++;
+    if(a[p]>=10) {
+        ll++, rr++;
+    }
+    l = p- 1, r = p+ 1;
+    while (ll || rr)
+    {
+        if (l == 0)
+        {
+            al += ll;
+            ll = 0;
+        }
+        if (r == n + 1)
+        {
+            ar += rr;
+            rr = 0;
+        }
+        if (l != 0)
+        {
+            int w = 10 - a[l];
+            if (w > ll)
+            {
+               a[l] += ll;
+                ll = 0;
+            }
+            else 
+            {
+                ll -= w;
+                ll ++,rr ++;
+                l --;
+            }
+        }
+        if (r != n + 1)
+        {
+            int w = 10 - a[r];
+            if (w > rr)
+            {
+                a[r] += rr;
+                rr = 0;
+            }
+            else 
+            {
+                rr -= w;
+                rr ++,ll ++;
+                r ++;
+            }
+        }
+    }
+    cout<<al<<' '<<ar<<endl;
+}
+signed main(){
+    int t;
+    cin>>t;
+    while (t--){
+        solve();
+    }
+    return 0;
+}
