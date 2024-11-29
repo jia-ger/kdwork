@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+//#define icn cin
+//#define itn int 
+//#define int long long
+
+
+signed main()
+{ int n;
+  cin>>n;
+  int ans=0;
+  for(int i=0;i<=n;i++)
+  if((i^(i*2)^(i*3))==0)ans++;//必须加大括号，要不就有可能先算后面
+  cout<<ans;
+ return 0;
+}
