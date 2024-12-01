@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int 
+#define int long long
+signed main()
+{int n;cin>>n;
+ while(n--)
+ { int a;cin>>a;
+   cout<<__builtin_popcount(a)<<" ";//计算1的个数（不用任何头文件）
+     
+ }
+    return 0;
+}
+
+原理
+unsigned popcnt (unsigned u)
+{
+    unsigned ret = 0;
+    while (u)
+        {
+        u = (u & (u - 1));    // 将 u 最右边的 1 清除
+        ret ++;
+        }
+    return ret;
+}
