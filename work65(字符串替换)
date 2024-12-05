@@ -1,3 +1,7 @@
+https://blog.csdn.net/cai_niaocainiao/article/details/81260902
+replace函数用法
+
+
 int main()  
 {  
     string line = "abbcbbc";      //str.replace(起始位置，终止位置，替换后的字符串)
