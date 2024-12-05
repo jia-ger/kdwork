@@ -1,0 +1,34 @@
+int main()  
+{  
+    string line = "abbcbbc";      //str.replace(起始位置，终止位置，替换后的字符串)
+    line = line.replace(0, 4, "123");  //用123替换从begin位置开始的4个字符,长度不用管自动缩进 结果为123bbc  
+    cout << line << endl;     
+    return 0;  
+}
+find 函数在容器中返回的是指针，在string返回的是下标
+
+#include<bits/stdc++.h>
+using namespace std;
+
+void str__(string s1,string s2,string s3)
+{   int n=0;
+    while((n=s1.find(s2))!=string::npos)	
+	{   //cout<<n<<endl;
+		s1.replace(n,s2.length(),s3);
+		
+	    //	cout<<s1<<endl;
+	}
+	
+	cout<<s1<<endl;
+} 
+
+int main()
+{ 
+  string s1,s2,s3;
+  getline(cin,s1);
+  getline(cin,s2);
+  getline(cin,s3);
+  str__(s1,s2,s3);
+return 0;
+
+}
