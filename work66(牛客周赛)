@@ -1,0 +1,49 @@
+链接：https://ac.nowcoder.com/acm/contest/97443/B
+来源：牛客网                                                                                //全是小写字母
+题目描述 小红有一个 n 颗宝石构成的环形宝石手串，即第一颗和最后一颗宝石相连，其中第 i 个宝石的属性为 s i ；若两个宝石的属性相同，那么这两个宝石会相互排斥，导致断开。
+小红可以从手串中摘掉一些宝石，每次摘掉后，这个宝石左右的两个宝石会相接，手串依旧是环形。小红想要破坏这个手串。
+她想要知道，最少还需要摘掉多少个宝石才会导致手串断开。特别的，当手串上剩余的宝石数量恰好为 2 而依旧没能断开时，视为破坏失败，直接输出 −1 //可知如果没有重复字母，则输出-1
+
+题解
+#include<bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int 
+#define int long long
+
+int a[30],b[30];
+void slove()
+{   memset(a,0,sizeof a);
+    memset(b,0,sizeof b);
+	itn n;cin>>n;
+	char c;
+	int ll=n+5;
+	for(int i=1;i<=n;i++)
+	{
+		cin>>c;
+		if(a[c-'a']!=0)
+		{ int x1=i-a[c-'a']-1;//正向两个紧邻的距离
+		  int x2=n-i+b[c-'a']-1;//反向到第一个的距离
+		  
+		  ll=min(ll,x1);
+		  ll=min(ll,x2);
+		  	
+		  	
+		}
+		if(a[c-'a']==0)b[c-'a']=i;//存每个元素的第一个出现位置
+	    a[c-'a']=i;
+	    
+	}
+	
+	if(ll==n+5)cout<<-1<<endl;//ll值未被修正过说明没重复元素
+	else cout<<ll<<endl;
+	
+	
+}
+signed main() 
+{   itn t;
+    icn>>t;
+    while(t--)
+    slove();
+      return 0;
+}
