@@ -18,7 +18,7 @@ void str__(string s1,string s2,string s3)
 {   int n=0;
     while((n=s1.find(s2))!=string::npos)	
 	{   //cout<<n<<endl;
-		s1.replace(n,s2.length(),s3);
+		s1.replace(n,s2.length(),s3); 
 		
 	    //	cout<<s1<<endl;
 	}
