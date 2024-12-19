@@ -1,0 +1,41 @@
+链接：https://ac.nowcoder.com/acm/contest/98256/D
+来源：牛客网
+小红拿到了一个01串，她初始站在第一个字符。小红可以进行以下移动方式：
+1. 花费x能量，移动到当前位置右边、离当前位置最近的，和当前字符相同的字符；
+2. 花费y能量，移动到当前位置右边、离当前位置最近的，和当前字符不同的字符。
+小红想知道，她移动到最右端的最小花费是多少？
+输入描述:第一行输入三个正整数n,x,y，用空格隔开，代表01串长度、第一种移动花费，第二种移动花费。
+第二行输入一个长度为n的01串。1≤n,x,y≤10^5
+输出描述:一个整数，代表花费的最小总能量。
+
+题解
+#include<bits/stdc++.h>
+
+using namespace std;
+typedef long long ll;
+ll f[100010];
+int idd[1000010],ids[1000010];
+
+int main(){
+	ios::sync_with_stdio(false);
+	
+	int n;
+	int x,y;
+	cin>>n>>x>>y;
+	string s;
+	cin>>s;
+	for(int i=1;i<=n;i++) f[i]=1e18;
+	int i1=n,i0=n;
+	for(int i=n-1;i>=0;i--){
+		if(s[i]=='1') idd[i]=i0,ids[i]=i1,i1=i;//ids与这个数一样 idd与这个数相反 
+		else idd[i]=i1,ids[i]=i0,i0=i;               //存的是下标 
+		
+	}
+	for(int i=0;i<n;i++){
+		f[idd[i]]=min(f[idd[i]],f[i]+y);
+		f[ids[i]]=min(f[ids[i]],f[i]+x);
+	}
+	//for(int i=0;i<n;i++)
+	//cout<<idd[i]<<" "<<ids[i]<<" ";
+	cout<<f[n-1];
+} 
