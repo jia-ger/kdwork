@@ -44,7 +44,7 @@ inline void msort(int l, int r)//归并排序
 		b[t++] = a[j];
 		++j;
 	}
-	for(register int i = l; i <= r; ++i)//把有序序列b赋值到a里 
+	for( int i = l; i <= r; ++i)//把有序序列b赋值到a里 
 	{
 		a[i] = b[i];
 	}
@@ -53,7 +53,7 @@ inline void msort(int l, int r)//归并排序
 int main()
 {
 	scanf("%d", &n);
-	for(register int i = 1; i <= n; ++i)
+	for( int i = 1; i <= n; ++i)
 	{
 		scanf("%d", &a[i]);
 	}
