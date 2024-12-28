@@ -1,0 +1,26 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+
+int a[5],b[5],c[5];
+signed main()
+{  
+    
+    for(int i=123;i<=987;i++)
+    {  
+     a[1]=i/100;a[2]=i/10%10;a[3]=i%10;
+     b[1]=i*2/100;b[2]=i*2/10%10;b[3]=i*2%10;
+     c[1]=i*3/100;c[2]=i*3/10%10;c[3]=i*3%10;
+        if(a[1]+a[2]+a[3]+b[1]+b[2]+b[3]+c[1]+c[2]+c[3]==45&&a[1]*a[2]*a[3]*b[1]*b[2]*b[3]*c[1]*c[2]*c[3]==362880)//用到1~9并且不重复
+    	{
+		cout<<i<<" "<<i*2<<" "<<i*3<<endl;
+		
+	    }
+    	
+    	
+	}
+
+	return 0;
+}
