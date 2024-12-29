@@ -1,0 +1,54 @@
+###问题陈述
+有一个 
+N×N 网格。Takahashi希望将每个单元格涂成黑色或白色，以便满足以下所有条件：-对于每一行，
+以下条件成立：
+-存在整数 i (0≤i≤N) 使得最左边的 i 单元被着色为黑色，其余的是白色的。-对于每一列，
+以下条件成立：
+-存在整数 i (0≤i≤N) 使得最上面的 i 单元是黑色的，其余的是白色的。在这些 N^ 2单元格中， M 单元格已经着色。
+其中，第 i 个位于从上往下第 X i​行，从左往下第 Y i列。并且如果 C i是'B'，则它是黑色的，如果 C i是'W'，则它是白色的。确定他是否可以对剩余的未着色的 N^2 −M 单元格进行着色，以便满足所有条件
+###约束
+1≤N≤10^9
+1≤M≤min(N^2,2×10^5 )
+Ci是“B”或“W”。
+-所有输入数字均为整数。
+
+题解
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+
+const itn N=2e5+10;
+itn t=INT_MAX;
+itn n,m;
+struct abd
+{
+	itn x,y;
+	char c;	
+}a[N];
+bool cmp(abd q,abd p)
+{
+	if(q.x!=p.x)return q.x<p.x;
+	else return q.y<p.y;//从左往右从上往下排好
+	
+}
+signed main()
+{  
+  cin>>n>>m;
+  for(int i=1;i<=m;i++)
+  cin>>a[i].x>>a[i].y>>a[i].c;
+  sort(a+1,a+m+1,cmp);
+  for(itn i=1;i<=m;i++)
+  {
+  	if(a[i].c=='W')t=min(t,a[i].y);
+  	else if(a[i].y>=t)
+  	{
+  		cout<<"No";return 0; 
+	}
+  	
+  	
+  }
+  cout<<"Yes";
+	return 0;
+}
