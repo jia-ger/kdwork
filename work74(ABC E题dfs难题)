@@ -1,0 +1,32 @@
+#### 问题陈述
+给你一个长度为 N 的非负整数序列 A 和一个整数K。保证二项式系数最多为 10^6 。
+从 A 中选择 K 个不同的元素，求所选元素 K 的 XOR 的最大可能值。
+
+
+题解
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+
+const int N=2e5+10;
+int n,k,t;
+int a[N];
+void dfs(int aa,itn b,int v)//不是啥好习惯，数组用a，如果形参用a，会使里面数据有歧义！！！
+{
+	if(b==k){t=max(t,v);return;}
+	for(int i=aa;i<=n;i++)
+	dfs(i+1,b+1,v xor a[i]);//其实就是从aa开始的一个全排列，b是元素个数，v是对应个数异或值 
+	
+}
+signed main()
+{  
+  cin>>n>>k;
+  int sum=0;
+  for (int i = 1; i <= n; ++i) cin >> a[i], sum=sum^a[i];
+	if (2 * k < n) dfs(1, 0, 0);//这里相当于砍两半，如果用的数多不妨将所有异或求开然后sum对剩余部分异或 因为总有a^a=0 相当于从sum中删去剩余的，提高运行效率
+  else k = n - k, dfs(1, 0, sum);//copy别人的，试过删掉这个暴力dfs，TLE了
+	cout <<t<< endl;
+  return 0;
+}
