@@ -13,3 +13,4 @@ bool cmp(int a, int b) {
 每当sort函数需要比较两个元素的大小时，它会调用cmp函数，根据返回值的大小来确定元素排序的顺序
 sort(a, a+10,cmp)调用cmp从大到小排序
 https://blog.csdn.net/weixin_45031801/article/details/137522007    //unique<去重函数> 返回的是去重后最后一个不重复元素的地址
+https://blog.csdn.net/weixin_43967256/article/details/127462617    //upper_bound lower_bound (返回大于某数的地址)底层逻辑二分
