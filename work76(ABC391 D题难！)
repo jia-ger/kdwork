@@ -1,0 +1,30 @@
+#include <stdio.h>
+#include <vector>
+using namespace std;
+const int N=2e5+5;
+vector<int> dep[N];
+int d[N]={0},x[N],y[N],die[N]={0};//x是列 y是行 
+int main(){
+	int n,w;scanf("%d%d",&n,&w);
+	for(int i=1;i<=n;++i){         //貌似这个输入是从左往右，从下往上进行的 
+		scanf("%d%d",&x[i],&y[i]);//第几个块的位置 
+		++d[x[i]];//每一列块的个数 
+		dep[d[x[i]]].push_back(i);//dep是存出现次数的具体第几块 在同一列的放一起 
+	}
+	int t=1e9;
+	for(int i=1;i<=w;++i) t=min(t,d[i]);//找到列上块数最少的 
+	
+	for(int i=1;i<=t;++i){             //只要这个消除完了，就不会出现底下一层消除 
+		int maxx=-1;
+		for(auto j:dep[i]) maxx=max(maxx,y[j]);//找到出现每次的最高的那个块，只有他落下来才能消除 
+		for(auto j:dep[i]) die[j]=maxx;//第几个方块消除所耗时间 
+	}
+	int T;scanf("%d",&T);
+//	for(int i=1;i<=n;++i) printf("%d ",die[i]);
+	while(T--){
+		int t,a;
+		scanf("%d%d",&t,&a);//die[a] 如果为0说明根本不会被消除，>t说明消除所要时间大于t 
+		if(die[a]==0||die[a]>t) printf("Yes\n");
+		else printf("No\n");
+	}
+}
