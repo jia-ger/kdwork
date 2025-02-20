@@ -1,0 +1,38 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int unsigned long long
+const int N=20005,P=131;
+itn n; 
+char s[20][20];
+bool f[20],ll[20],ul[20];
+void dfs(itn u)
+{
+    if(u==n){
+    	for(itn i=0;i<n;i++)puts(s[i]);
+    	puts("");
+	}
+	for(itn i=0;i<n;i++)
+	{
+		if(!f[i]and !ll[u+i]and !ul[i-u+n])
+		{
+			f[i]=ll[u+i]=ul[i-u+n]=true;
+			s[u][i]='Q';
+			dfs(u+1);
+			f[i]=ll[u+i]=ul[i-u+n]=false;
+			s[u][i]='.';
+		}
+		
+	}
+}
+
+signed main()
+{
+    cin>>n;
+    for(itn i=0;i<n;i++)
+     for(itn j=0;j<n;j++)
+      s[i][j]='.';
+    dfs(0);
+    return 0;
+}
