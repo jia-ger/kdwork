@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+#define pair<int,int> PII
+const int N=1e5+10;
+
+itn n,ans=N; 
+itn e[N*2],ne[N*2],idx,h[N*2];
+bool st[N];
+void add(itn x,int c)
+{ 
+	e[idx]=c;
+	ne[idx]=h[x];
+	h[x]=idx++;	
+}
+
+
+int dfs(int u)
+{   
+    st[u]=true;
+    itn res=0,sum=1;
+	for(itn i=h[u];i!=-1;i=ne[i])
+	{
+		itn j=e[i];
+		if (!st[j]) {
+            int s = dfs(j);  
+            res = max(res, s); 
+            sum += s; 
+        }
+	}
+	res=max(res,n-sum);
+	ans=min(ans,res);
+	return sum;
+}
+signed main()
+{
+    cin>>n;
+    memset(h,-1,sizeof h);
+	for(itn i=1;i<=n-1;i++)
+	{
+		itn u,v;icn>>u>>v;
+		add(u,v);
+		add(v,u);
+	} 
+	dfs(1);
+	cout<<ans;
+    return 0;
+}
