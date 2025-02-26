@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+//typedef pair<int, int> PII;
+const int N=2e5+10;
+
+itn a[2*N];
+itn b[2*N];
+signed main()
+{
+   itn t;cin>>t;
+   while(t--)
+   {
+   	itn n,m;cin>>n>>m;
+   	for(itn i=1;i<=n;i++)cin>>a[i],a[i]%=m;
+   	sort(a+1,a+n+1);
+   	for(itn i=1;i<=n;i++)
+   	a[i+n]=a[i]+m;
+   	for(itn i=1;i<=2*n;i++)
+   	b[i]=b[i-1]+a[i];
+   	
+   	itn ans=0x3f3f3f3f3f3f3f3f;
+   	for(itn i=1;i<=n;i++)
+   	{
+   		itn mid=i+n/2;
+   		itn sum=(mid-i)*a[mid]-b[mid-1]+b[i-1]+b[i+n-1]-b[mid]-(n+i-1-mid)*a[mid];
+   		ans=min(ans,sum);
+   		
+	}
+	cout<<ans<<endl;
+   }
+  return 0;
+}
