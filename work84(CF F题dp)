@@ -1,0 +1,47 @@
+https://codeforces.com/contest/2091
+
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+typedef pair<int, int> PII;
+const int N=2005;
+const int mod=998244353; 
+int g[N][N],dp[N][N],pre[N][N]; 
+signed main() {
+   int t;cin>>t;
+   while(t--)
+   {
+     int n,m,d;
+	 cin>>n>>m>>d;
+     int dd=d-1;
+	 for(itn i=1;i<=n;i++)
+	  for(itn j=1;j<=m;j++)
+	   {char ch;cin>>ch;
+	    if(ch=='X')g[i][j]=1;
+	    else g[i][j]=0;	
+	   }
+	  auto s=[&](int c,int l,int r)
+		{
+			l=max(l,1LL),r=min(r,m);
+			return (pre[c][r]+mod-pre[c][l-1])%mod;
+		};
+	  for(int i=1;i<=n;i++)for(itn j=1;j<=m;j++)dp[i][j]=0; 
+	  for(int i=1;i<=m;i++)if(g[n][i])dp[n][i]=1;
+	  for(itn i=1;i<=m;i++)pre[n][i]=(pre[n][i-1]+dp[n][i])%mod;
+	  for(int i=1;i<=m;i++)if(g[n][i])dp[n][i]=s(n,i-d,i+d);
+	  for(int i=1;i<=m;i++)pre[n][i]=(pre[n][i-1]+dp[n][i])%mod;
+	  for(int i=n-1;i>=1;i--)
+	  {
+	  for(int j=1;j<=m;j++)if(g[i][j])dp[i][j]=s(i+1,j-dd,j+dd);
+	  for(itn j=1;j<=m;j++)pre[i][j]=(pre[i][j-1]+dp[i][j])%mod;
+	  for(int j=1;j<=m;j++)if(g[i][j])dp[i][j]=s(i,j-d,j+d);
+	  for(int j=1;j<=m;j++)pre[i][j]=(pre[i][j-1]+dp[i][j])%mod;
+	  }
+	  cout<<s(1,1,m)<<'\n';
+	  	 	
+   } 
+
+    return 0;
+}
