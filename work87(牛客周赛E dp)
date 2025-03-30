@@ -1,0 +1,44 @@
+https://ac.nowcoder.com/acm/contest/104637/E
+
+#include <bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+typedef pair<int, int> PII;
+const int N=1e6+10;
+
+int a[105];
+signed main() {
+    int t;cin>>t;
+    while(t--)
+    {
+     int n;cin>>n;
+     
+     int m=0;
+     int ans=1e18; 
+	 for(itn i=1;i<=n;i++){cin>>a[i];if(a[i]>m)m=a[i];}
+	 vector<int>dp(n*m+1);
+//	 int dp[n*m+1];
+//	 memset(dp,0,sizeof dp);
+	 dp[0]=1;
+	 sort(a+1,a+n+1);
+	 for(int i=1;i<=n;i++)
+	{
+	 
+	  for(int j=a[i]+1;j<=n*m;j++)
+	   {
+	   	if(dp[j])
+	   	{
+	   		ans=min(ans,a[i]+j);
+			break; 
+		}
+	   }
+	   for(int k=n*m;k>=a[i];k--)//边计算边dp的优势在于每一次dp前计算的边长之和一定是不包含a[i]的也就是由其他边构成边长之和；
+		dp[k]|=dp[k-a[i]];
+	}
+	   if(ans>1e17)ans=-1;
+	   cout<<ans<<endl; 
+	}
+    return 0;
+}
