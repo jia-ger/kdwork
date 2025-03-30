@@ -1,0 +1,33 @@
+https://ac.nowcoder.com/acm/contest/105623/D
+
+#include<bits/stdc++.h>
+using namespace std;
+long long a[1000007],b[1000007];
+void solve()
+{    
+    int n;  
+    scanf("%d",&n);
+    for(int i=1;i<=n;i++)
+    {
+       scanf("%lld",&a[i]);
+    }
+    b[1]=a[1];
+    b[2]=max(0LL,a[2]+b[1]);
+    for(int i=3;i<=n;i++)
+    {
+        b[i]=a[i]+b[i-1];
+        b[i]=max(b[i-2],b[i]);
+        b[i]=max(b[i-3],b[i]);
+    }
+    cout<<b[n]<<endl;
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+       solve();
+    }
+    return 0;
+}
