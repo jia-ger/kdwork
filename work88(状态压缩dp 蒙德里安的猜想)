@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+int n,m;
+const int N=12,M=1<<N;
+bool st[M];
+int dp[N][M];
+vector<vector<int>>q(M);//二进制思想枚举状态  深刻理解状态表示与状态计算
+signed main()
+{  
+    while(cin>>n>>m,m||n)
+    {   
+    	for(int i=0;i<(1<<n);i++)//处理偶数个零的情况
+    	 {int cnt=0;
+    	  bool isv=true;
+		 for(int j=0;j<n;j++)
+    	 {
+    	 	if((i>>j)&1)
+    	 	{
+    	 		if(cnt&1)
+    	 		{
+    	 			isv=false;
+    	 			break;
+				}
+				cnt=0;
+			}
+			else cnt++;
+		 }
+		 if(cnt&1)isv=false;
+		 st[i]=isv;
+		 }
+		 for(int i=0;i<(1<<n);i++)//处理由i-1列转移到i列的状态
+		  {q[i].clear();
+		  for(int j=0;j<(1<<n);j++)//这里i可看作i列的状态，j看作i-1列的状态，合法就存进容器中
+		  {
+		  	if((i&j)==0&&st[i|j])
+		  	q[i].push_back(j);//全是能转移到当前状态的上一个状态的合法值（状态）
+		  }
+		  
+		  }
+		  memset(dp,0,sizeof dp);
+		  dp[0][0]=1;
+		  for(int i=1;i<=m;i++)
+		  for(int j=0;j<(1<<n);j++)
+		  {
+		  	for(auto k:q[j])
+		  	dp[i][j]+=dp[i-1][k];
+		  }
+		 cout<<dp[m][0]<<endl;
+	}
+    
+    return 0;
+}
