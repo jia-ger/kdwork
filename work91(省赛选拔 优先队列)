@@ -1,0 +1,45 @@
+https://www.luogu.com.cn/problem/U550349
+
+#include<bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+typedef pair<int, int> PII;
+const int N=1e6+10;
+int a[N];
+priority_queue<int,vector<int>,less<int>>q1;//维护当前中位数左区间 
+priority_queue<int,vector<int>,greater<int>>q2;//维护当前中位数右区间 
+//相比添加两个数就要sort一遍 o(nlogn) 复杂度 这个利用stl 降低复杂度为 o(n)  
+signed main() {
+    itn n;cin>>n;
+    for(itn i=1;i<=n;i++)cin>>a[i];
+    itn mid=a[1];
+    cout<<mid<<endl;
+    for(int i=2;i<=n;i++)
+    {
+    	if(a[i]>mid)q2.push(a[i]);
+    	else q1.push(a[i]);
+    	if(i%2==1)//添加两个数算一下不平衡最多移一次就行这个复杂度可忽略 
+    	{
+    		while(q1.size()!=q2.size())//当前mid不在是中位数 
+    		{
+    			if(q1.size()>q2.size())//说明中位数应该左移 
+				{
+					q2.push(mid);
+					mid=q1.top();
+					q1.pop();
+				} 
+				else if(q1.size()<q2.size())//中位数应该右移 
+				{
+					q1.push(mid);
+					mid=q2.top();
+					q2.pop();
+				} 
+    			
+			}
+			cout<<mid<<endl; 
+		}
+	}
+    return 0;
+}
