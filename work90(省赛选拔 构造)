@@ -1,0 +1,29 @@
+//构造真是离谱 当时看不明白题目什么意思赛后才看懂 题目确实不算难 挺妙的
+
+#import <bits/stdc++.h>
+using namespace std;
+const int maxn=1e4+10;
+int a[maxn],b[maxn];
+vector<int>ans;
+int main() 
+{
+	int n,m;
+	cin>>n>>m;
+	if(m<0||m==n||(m==n-1&&n>=2))
+	cout<<-1; 
+	else if(m==0) //两个解一样说明初始区间就都是不相交的
+	{
+		for (int i=1;i<=n;i++)
+		cout<<2*i+1<<' '<<2*i+2<<'\n';
+		return 0;
+	} 
+	else  //小峰那样会少情况 比如一个大区间囊括好几个小区间 小峰只考虑一个大区间 小羊则是不考虑大区间算里面全部的小区间 假如里面小区间n个 大区间只有一个 他俩差值为 n-1 让这个值等于m即可 
+         //多出来的放后面构成独立区间就好
+	{
+		cout<<1<<' '<<(int)(1e8)<<'\n';
+		for (int i=1;i<=m+1;i++)
+		cout<<3*i+2<<' '<<3*i+3<<'\n';
+		for (int i=1;i<=n-m-2;i++)
+		cout<<(int)(2e8+3*i+1)<<' '<<(int)(2e8+3*i+2)<<'\n';
+	}
+}
