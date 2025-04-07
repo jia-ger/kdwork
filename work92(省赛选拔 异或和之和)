@@ -1,0 +1,43 @@
+处理位运算的常用方法：拆位法
+常用的思想：贡献法思想
+
+统计二进制第i位所对的1的前缀和,如果到某个数字时,所对前缀和是奇数,那么它就能够提供(1+前面偶数的个数)个合法区间。
+如果前缀和是偶数,那么它能够提供的合法区间个数是:(前面奇数的个数)
+
+遍历结束后,你就能求出所有对于第i位二进制位而言的合法区间个数,那么这些区间中,i位都是有贡献的,加上即可
+//拆位使时间复杂度从原本遍历区间o(n*n)变成 30*n 只需枚举数每一个二进制位对答案的贡献即可
+#include<bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+typedef pair<int, int> PII;
+const int N=1e6+10;
+int a[N];
+
+signed main() {
+    int n;
+	cin>>n;
+	for(itn i=1;i<=n;i++)cin>>a[i];
+	int ans=0;
+	for(itn i=30;i>=0;i--)
+	{  itn s=0,s0=1,s1=0;
+		for(itn j=1;j<=n;j++)
+		{
+			int bit=(a[j]>>i)&1;
+			s+=bit;
+			if(s%2==1)
+			{
+				ans+=(1LL<<i)*s0;
+				s1++;
+			}
+			else
+			{
+				ans+=(1LL<<i)*s1;
+				s0++;
+			}
+		}
+	}
+	cout<<ans; 
+    return 0;
+}
