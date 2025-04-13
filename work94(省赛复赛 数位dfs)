@@ -1,0 +1,36 @@
+https://ac.nowcoder.com/acm/contest/104226/G
+
+#include<bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+typedef pair<int, int> PII;
+const int N=1e5+10;
+
+int ans=0;
+map<int,bool>ma;
+int l,r;
+void dfs(itn u,int sum)
+{
+	if(u>18)return;
+	if(sum>=l&&sum<=r)
+	{
+	  if(!ma[sum])ans++;
+	  ma[sum]=1;	
+	} 
+	if(sum%10>0)dfs(u+1,sum*10+sum%10-1);
+	if(sum%10<9)dfs(u+1,sum*10+sum%10+1);
+	
+}
+
+signed main()
+{   
+    cin>>l>>r;
+	for(itn i=0;i<=9;i++)
+	{
+		dfs(1,i);
+	 } 
+	 cout<<ans;
+    return 0;
+}
