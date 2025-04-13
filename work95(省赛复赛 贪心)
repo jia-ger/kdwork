@@ -1,0 +1,27 @@
+https://ac.nowcoder.com/acm/contest/104226/L
+
+#include<bits/stdc++.h>
+using namespace std;
+#define icn cin
+#define itn int
+#define int long long
+typedef pair<int, int> PII;
+const int N=1e5+10;
+
+
+signed main()
+{   
+    int t;cin>>t;
+	while(t--)
+	{
+		int k,x,y;cin>>k>>x>>y;
+	   for(itn i=1;i<k;i++)
+	   {
+	   	 y=(y+x)/2;
+	   	 if(y==x||y==(y+x)/2)break;
+	   }
+	   cout<<y<<endl;
+		
+	 } 
+    return 0;
+}
