@@ -1,0 +1,27 @@
+https://ac.nowcoder.com/acm/problem/279772
+
+#include<bits/stdc++.h>
+using namespace std;
+const int N=1e5+10;
+int a[N],ans[N];
+int l[N],r[N];
+int main()
+{
+    int n,q;cin>>n>>q;
+    for(int i=1;i<=n;i++)cin>>a[i];
+    for(int i=1;i<=q;i++)cin>>l[i]>>r[i];
+    int len=r[1]-l[1]+1;
+    vector<int>v;
+    for(int i=1;i<=n;i++)
+    {
+        v.insert(lower_bound(v.begin(),v.end(),a[i]),a[i]);//用v来维护一个有序序列
+        if(v.size()==len)
+        {   int id=len/2;
+            ans[i]=v[id];
+            v.erase(lower_bound(v.begin(),v.end(),a[i-len+1]));
+        } 
+    }   
+    for(int i=1;i<=q;i++)
+        cout<<ans[r[i]]<<endl;
+    return 0;
+}
