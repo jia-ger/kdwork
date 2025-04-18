@@ -1,0 +1,56 @@
+https://www.luogu.com.cn/problem/P9667
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+typedef pair<int,int> PII;
+
+const int N=505;
+int n,m,a[N],s[N];
+vector<int>G;//记录可能的答案
+
+signed main() {
+  int ans;
+  int t;cin>>t;
+  while(t--)
+  { G.clear();
+    ans=1e9;
+  	cin>>n>>m;
+  	for(int i=1;i<=n;i++)
+  	cin>>a[i];
+  	for(itn i=1;i<=n;i++)
+  	{
+  		itn k=a[i];
+  		while(k)
+  		{
+  			G.push_back(k);
+  			k>>=1;
+		  }
+	  }
+	 for(int y:G)
+	 {
+	 	for(int i=1;i<=n;i++)s[i]=1e9;
+	 	for(int i=1;i<=n;i++)
+	 	{
+	 		int k=a[i],cnt=0;
+	 		while(k>=1)
+	 		{
+	 			s[i]=min(s[i],cnt+abs(k-y));//s[i]表示每个塔到达答案最小的操作次数
+	 			k>>=1;cnt++;
+			 }
+			
+		 }
+	 		 sort(s+1,s+n+1);
+			 int sum=0;
+			 for(itn i=1;i<=n-m;i++)
+			 {
+			 	sum+=s[i];
+			 }
+	 		ans=min(ans,sum);	
+	  }
+	  cout<<ans<<endl; 
+  }
+  return 0;
+}
