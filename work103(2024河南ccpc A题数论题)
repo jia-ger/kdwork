@@ -1,0 +1,28 @@
+2024河南省CCPC https://codeforces.com/gym/105158
+
+#include <iostream>
+#include <cstdio>
+using namespace std;
+typedef long long ll;
+int T;
+ll n,d;
+ll pw[20];
+
+int main(){
+	cin.tie(0)->sync_with_stdio(false);
+	
+	pw[0]=1;
+	for(int i=1;i<=18;i++)pw[i]=pw[i-1]*10;
+	
+	cin>>T;
+	while(T--){
+		cin>>n>>d;
+		int i=0;
+		while(pw[i]<n)i++;
+		//cout<<"pw[i]="<<pw[i]<<'\n'; 
+		ll ans=123456789ll*pw[i+1]+d*pw[i];
+		ll x=(n-ans%n)%n;
+		cout<<(ans+x)/n<<'\n';
+	}
+	return 0;
+}
