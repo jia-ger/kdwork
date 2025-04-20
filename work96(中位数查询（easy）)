@@ -1,5 +1,5 @@
 https://ac.nowcoder.com/acm/problem/279772
-
+ 
 #include<bits/stdc++.h>
 using namespace std;
 const int N=1e5+10;
