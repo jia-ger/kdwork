@@ -1,0 +1,46 @@
+
+
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+const int mod = 998244353;
+int qpow(int x,int n){
+	int ans = 1;
+	while(n){
+		if(n & 1) ans = ans * x % mod;
+		x = x * x % mod ;
+		n >>= 1;
+	}
+	return ans;
+}
+int inv(int x){
+	return qpow(x,mod -2);
+}
+int ope[400005];
+signed main(){
+	int n;
+	cin>>n;
+	int sz = 0;
+	map<int,int> mp;//map默认按键的从小到大排序
+	int mx = -1;
+	int ans = 1;
+	for(int i = 1;i<=2*n;i++)cin>>ope[i];
+	for(int i = 1;i<=2*n;i++){
+		int num = ope[i];
+		if(num != -1){
+			if(mx > num){
+				cout<<0<<'\n';return 0;}
+				mp[num]++;sz ++ ;
+		}else{
+			
+			ans = ans * (*mp.begin()).second %mod;
+			ans = ans * inv(sz) % mod;
+			sz --;
+			mx = max(mx,(*mp.begin()).first);
+			(*mp.begin()).second--;
+			if((*mp.begin()).second == 0) mp.erase(mp.begin());
+		}
+	}
+	cout<<ans<<'\n';
+	return 0;
+}
