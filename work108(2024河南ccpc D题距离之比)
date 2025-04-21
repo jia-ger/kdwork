@@ -1,0 +1,47 @@
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <cmath>
+#include <iomanip>
+#define pll pair<ll,ll>
+using namespace std;
+typedef long long ll;
+const int maxn=2e5+5;
+
+ll T,n;
+pll a[maxn];
+
+double calc(pll a,pll b){
+	auto [x1,y1]=a;
+	auto [x2,y2]=b;
+	return (abs(x1-x2)+abs(y1-y2))/sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+}
+
+int main(){
+	cin.tie(0)->sync_with_stdio(false);
+	cin>>T;
+	while(T--){
+		cin>>n;
+		for(int i=1;i<=n;i++){
+			auto &[x,y]=a[i];
+			cin>>x>>y;
+		}
+		sort(a+1,a+n+1,[](pll a,pll b){
+			return a.first+a.second<b.first+b.second;
+		});
+		
+		double maxx=1;
+		for(int i=2;i<=n;i++)
+			maxx=max(maxx,calc(a[i-1],a[i]));
+		
+		sort(a+1,a+n+1,[](pll a,pll b){
+			return a.first-a.second<b.first-b.second;
+		});
+		
+		for(int i=2;i<=n;i++)
+			maxx=max(maxx,calc(a[i-1],a[i]));
+		
+		cout<<setiosflags(ios::fixed)<<setprecision(12)<<maxx<<endl;
+	}
+	return 0;
+}
