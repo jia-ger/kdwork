@@ -1,0 +1,36 @@
+#include <iostream>
+#include <cstdio>
+using namespace std;
+const int maxn=3e5+5;
+typedef long long ll;
+
+int T,n;
+ll a[maxn],b[maxn];
+
+bool check(ll k){
+	ll lmx=-1e18,rmi=1e18;
+	for(int i=1;i<=n;i++){
+		lmx=max(lmx,a[i]-k*b[i]);
+		rmi=min(rmi,a[i]+k*b[i]);
+	}
+	return lmx<=rmi;
+}
+
+int main(){
+	cin.tie(0)->sync_with_stdio(false);
+	cin>>T;
+	while(T--){
+		cin>>n;
+		for(int i=1;i<=n;i++)cin>>a[i];
+		for(int i=1;i<=n;i++)cin>>b[i];
+		
+		ll l=0,r=1e9,mid;
+		while(l<r){
+			mid=(l+r)>>1;
+			if(check(mid))r=mid;
+			else l=mid+1;
+		}
+		cout<<l<<"\n";
+	}
+	return 0;
+}
