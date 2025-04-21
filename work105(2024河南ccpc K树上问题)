@@ -1,0 +1,64 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+
+vector<int>p[N];
+int a[N];
+int cnt[N];//以u为根的子树不合法边的数量 
+void dfs1(int u,int fa)
+{
+ 	int ans=0;
+ 	for(auto i:p[u])
+ 	{
+ 		if(i==fa)continue;
+ 		dfs1(i,u);
+ 		ans+=cnt[i]+(a[i]*2<a[u]);
+	}
+	cnt[u]=ans;
+	return;
+}
+int ans[N];
+void dfs2(int u,int fa)
+{
+	for(auto i:p[u])
+	{
+		if(i==fa)continue;
+		ans[i]=ans[u]-(a[i]*2<a[u])+(a[u]*2<a[i]);
+		dfs2(i,u);
+	}
+	return;
+}
+void solve()
+{
+	
+	itn n;cin>>n;
+	for(int i=1;i<=n;i++)p[i].clear();
+	for(itn i=1;i<=n;i++)cin>>a[i];
+	for(itn i=1;i<n;i++)
+	{
+		int u,v;cin>>u>>v;
+		p[u].push_back(v);
+		p[v].push_back(u);
+	}
+	dfs1(1,-1);
+	ans[1]=cnt[1];
+	dfs2(1,-1);
+	int t=0;
+	for(int i=1;i<=n;i++)t+=(ans[i]==0);
+	cout<<t<<endl;
+}
+
+
+signed main(){
+
+   cin.tie(0)->sync_with_stdio(0);	
+   int t;icn>>t;
+   while(t--)solve();
+   
+	return 0;
+}
