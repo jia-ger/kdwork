@@ -1,0 +1,39 @@
+https://blog.csdn.net/qq_45809243/article/details/138890493
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+itn dp[N];
+itn a[N];
+
+void solve()
+{
+	itn n,m;cin>>n>>m;
+	for(itn i=1;i<=m;i++)cin>>a[i];
+	for(itn i=1;i<=m;i++)dp[i]=1e18;
+	
+	for(itn i=1;i<=m;i++)//直接找这m个bug就行，节省时间，运行一遍必然要de至少一个bug 
+	 for(itn j=i-1;j>=max(0ll,i-50);j--)//debug时间是以四次方上升的所以debug的转移行数应该不会太多 
+	 {
+	 	//dp求第几个bug所要最小的时间 a[i]是de到第i个bug所需运行时间 
+	 	dp[i]=min(dp[i],dp[j]+a[i]+1ll*(i-j)*(i-j)*(i-j)*(i-j));
+	 	
+	 }
+	 cout<<dp[m];
+}
+
+
+signed main(){
+
+   cin.tie(0)->sync_with_stdio(0);	
+   int t=1;
+//   icn>>t;
+   while(t--)solve();
+   
+	return 0;
+}
