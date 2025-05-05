@@ -1,0 +1,59 @@
+https://ac.nowcoder.com/acm/contest/58860/M
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1005;
+
+vector<int>w[N];
+int f[N];
+itn x[N];
+void solve()
+{ 
+  int n,m,k;cin>>n>>m>>k;
+  for(int i=1;i<=m;i++)cin>>x[i];
+  for(int i=1;i<=n;i++)
+  {
+  	int x,y;icn>>x>>y;
+  	w[y].push_back(x);
+  }
+  for(itn i=1;i<=m;i++)
+  {
+  	if(!w[i].empty())
+  	{
+  		sort(w[i].begin(),w[i].end(),greater<long long>());
+  		w[i][0]-=x[i];
+  		for(int j=1;j<w[i].size();j++)
+  		w[i][j]+=w[i][j-1];
+	  }
+  }
+  for(int i=0;i<=k;i++)
+  f[i]=-1e9;
+  f[0]=0;
+  for(int i=1;i<=m;i++)
+  { if(w[i].size()==0)continue;
+  	for(int j=k;j>=0;j--)
+  	{  
+  	   for(int t=0;t<w[i].size();t++)
+  	   if(t+1<=j)
+		 {
+		   f[j]=max(f[j],f[j-(t+1)]+w[i][t]);	
+		 }	
+	}
+  }
+  cout<<f[k]<<endl;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int t=1; 
+//   cin>>t;
+   while(t--)solve();
+   
+	return 0;
+}
