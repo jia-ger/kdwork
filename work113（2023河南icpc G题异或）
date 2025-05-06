@@ -1,0 +1,68 @@
+https://ac.nowcoder.com/acm/contest/58860/G
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+#define ll __int128_t
+ll d[65];
+int ans=1e18;
+int n,s;
+bool dfs(ll sum,ll u,ll res)
+{
+	if(u==-1)
+	{
+		if(sum==0)
+		{
+			ans=res;
+			return true;
+		}
+		return false;
+	}
+	ll k=(1LL<<u)*d[u];//第u位为0 时的贡献 
+	if((sum-k>=0)&&(sum-k)/n<=__int128_t((1LL<<u)-1)) 
+	{
+		if( dfs(sum-k,u-1,res))
+		return true;
+	}
+	k=(1LL<<u)*(n-d[u]);//第u位为1 时的贡献 
+	if((sum-k>=0)&&(sum-k)/n<=__int128_t((1LL<<u)-1)) 
+	{
+		return dfs(sum-k,u-1,res+(1LL<<u));
+	}
+	return false;
+}
+
+void solve()
+{ 
+  cin>>n>>s;
+  for(int i=1;i<=n;i++)
+  {
+  	int x;cin>>x;
+  	for(int j=0;j<60;j++)
+  	{
+  	  if(x>>j&1)
+		{
+		 d[j]++;	
+		}	
+	}
+  }
+  dfs(s,59,0);
+  
+  if(ans==1e18)cout<<-1;
+  else cout<<ans;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int t=1; 
+//   cin>>t;
+   while(t--)solve();
+   
+	return 0;
+}
