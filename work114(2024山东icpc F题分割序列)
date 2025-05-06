@@ -1,0 +1,52 @@
+https://codeforces.com/gym/105385/problem/F
+
+解题思路：对于这种i*s【i】求和 我们可以把他转化成后缀和 相当于是整体加上若干个后缀和 ，由于求最大值则从大到小排序后缀和
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=5e5+10;
+#define ll __int128_t
+
+int a[N],suf[N];//suf后缀 
+void solve()
+{ 
+  itn n;
+  cin>>n;
+  memset(suf,0,sizeof suf);
+  priority_queue<int>q;
+  int sum=0;
+  for(itn i=1;i<=n;i++)
+  cin>>a[i];
+  
+  for(int i=n;i>=2;i--)
+  {
+  	sum+=a[i];
+  	suf[i]=suf[i+1]+a[i];
+  	q.push(suf[i]);
+  }
+  sum+=a[1];
+  cout<<sum<<" "; 
+  while(!q.empty())
+  {
+    int t=q.top();
+	q.pop();
+	sum+=t;
+	cout<<sum<<" ";	
+  } 
+  cout<<endl;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int t=1; 
+   cin>>t;
+   while(t--)solve();
+   
+	return 0;
+}
