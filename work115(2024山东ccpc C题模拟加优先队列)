@@ -1,0 +1,56 @@
+https://codeforces.com/gym/105385/problem/C
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=5e5+10;
+const int mod=998244353;
+#define ll __int128_t
+
+struct abd
+{
+	int l,r;
+}e[N];
+bool cmp(abd q,abd p)
+{
+	return q.l<p.l;
+}
+void solve()
+{ 
+  int n,k;cin>>n>>k;
+  for(int i=1;i<=n;i++)
+  cin>>e[i].l>>e[i].r; 
+  sort(e+1,e+1+n,cmp);
+  
+  int ans=1;
+  int tem=k;
+  priority_queue<int,vector<int>,greater<int>>q;
+  for(int i=1;i<=n;i++)
+  {
+  	
+    while(!q.empty()&&q.top()<e[i].l)
+	{
+	  tem++;	
+	  q.pop();	
+	}	
+    ans*=tem;
+    ans=ans%mod;
+    tem--;
+   	q.push(e[i].r);
+  } 
+   cout<<ans<<endl;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int t=1; 
+   cin>>t;
+   while(t--)solve();
+   
+	return 0;
+}
