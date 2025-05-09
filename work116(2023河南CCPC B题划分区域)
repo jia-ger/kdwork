@@ -1,0 +1,57 @@
+https://codeforces.com/gym/104354
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e6+10;
+const int mod=998244353;
+#define ll __int128_t
+
+int a[N],f[N],m[N];
+
+void solve()
+{ 
+ int n;cin>>n;
+ for(int i=1;i<=n;i++)
+ cin>>a[i]; 
+ m[n+1]=a[n];
+ for(int i=n;i>=1;i--)
+ m[i]=min(m[i+1],a[i]);
+ int maxx=0; 
+ for(int i=1;i<=n;i++)
+ {
+ 	maxx=max(maxx,a[i]);
+	if(maxx<=m[i+1]||i==n)//f为可划分的区域 
+	{
+	  f[i]=1;
+	  maxx=0;	
+	}  
+ }
+ int ans=0;
+ for(int k=1;k<=n;k++)
+ {  ans++; 
+ 	for(int j=k;j<=n;j+=k)
+ 	{
+ 	  if(f[j]==0)
+	   {
+	   	ans--;
+		break;
+	   }	
+	}
+ }
+ cout<<ans<<endl;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int t=1; 
+//   cin>>t;
+   while(t--)solve();
+   
+	return 0;
+}
