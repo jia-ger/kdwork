@@ -1,0 +1,41 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e6+10;
+const int mod=998244353;
+#define ll __int128_t
+
+int ne[N];
+
+void solve()
+{ 
+  string s;cin>>s;
+  s='#'+s;
+  
+  for(int i=2,j=0;i<=s.size()-1;i++)
+  {
+  	while(j&&s[j+1]!=s[i])j=ne[j];
+  	if(s[i]==s[j+1])j++;
+  	ne[i]=j;
+	if(ne[i]>=100)
+	{
+	 cout<<"No";return;	
+	}   
+   }
+   cout<<"Yes";
+   return; 
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int t=1; 
+//   cin>>t;
+   while(t--)solve();
+   
+	return 0;
+}
