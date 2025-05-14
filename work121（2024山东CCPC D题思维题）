@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=105;
+const int mod=998244353;
+#define ll __int128_t
+
+
+void solve()
+{ 
+  int p,a,b,q,c,d,m,t;
+  cin >> p >> a >> b >> q >> c >> d >> m >> t;
+  if(m<p)
+  {
+  	cout<<m<<endl;return;
+  }
+  int x,tt,l1;//x是最大能买的袋数，t是一轮下来的时间，l1是能买x+1的轮数
+  while(1)
+  {
+  	x=m/p;
+  	tt=(a+c)*x+b+d;
+  	l1=((x+1)*p-m+(q-p)*x-1)/((q-p)*x);
+  	if(t<tt*l1)break;
+  	t-=tt*l1;
+  	m+=(q-p)*x*l1;
+  	
+   } 
+        //跳出来之后，记得算一下我们能够买几次x个面粉
+        m += t / tt* (q - p) * x;
+        t -= t / tt * tt;
+        
+    //之后二分买面粉的个数，如果二分的个数在剩余的时间能够买完再卖完就l=mid，最后l就是我们最后买的面粉
+        int l = 0, r = t + 1;
+        while (l<r) {	
+            
+            int mid = l + r +1>> 1;
+            if (a * mid + b + c * mid + d <= t) l = mid;
+            else r = mid-1;
+        }
+        
+        m += (q - p) * l;
+        cout << m << endl;
+        return;
+}
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
