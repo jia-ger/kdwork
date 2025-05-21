@@ -1,0 +1,57 @@
+https://codeforces.com/gym/105911
+2025南昌邀请赛补题链接
+
+//根据题意推出r尽可能的小才好
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e6+10;
+const int mod=998244353;
+#define ll __int128_t
+
+vector<double>r;
+vector<double>c;
+void solve()
+{ 
+   int n,k;cin>>n>>k;
+   vector<double>r(n+1);
+   vector<double>c(n+1);
+   double r0,c0,p,L,R;
+   cin>>r0>>c0>>p>>L>>R;
+   r[0]=r0; 
+   c[0]=c0;
+  
+   while(k--)
+   {
+     int x;
+	 double y;
+	 cin>>x>>y;
+	 r[x]=y;	
+   } 
+   
+   double ans=0;
+   for(int i=1;i<=n;i++)
+   {
+   	
+   	if((int)r[i]==0) r[i]=L;
+   	c[i]=p*c[i-1]+(1-p)*r[i-1];
+   	ans+=c[i]-r[i];
+   }
+   printf("%.10lf\n",ans);
+}
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
