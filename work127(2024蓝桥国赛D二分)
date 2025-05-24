@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=505;
+const int M=1e5+10;
+const int mod=998244353;
+#define ll __int128_t
+
+int a[N];
+itn n,m;
+
+bool check(itn x)
+{   int cnt=0;
+    
+	for(int i=1;i<=n;i++)
+	{
+		cnt+=max(0LL,(a[i]-a[i-1]+x-1)/x-1);
+		
+	}
+	return cnt<=m+1;
+}
+void solve()
+{ 
+  cin>>n>>m;
+  for(int i=1;i<=n;i++)cin>>a[i];
+  int l=1,r=a[n];
+  while(l<r)
+  { int mid=l+r>>1;
+  	if(check(mid))r=mid;
+  	else l=mid+1;
+  }
+  cout<<l<<endl;
+}
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int T=1; 
+//   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
