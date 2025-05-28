@@ -1,0 +1,82 @@
+https://codeforces.com/contest/2114/problem/D
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int M=1e5+10;
+const int mod=998244353;
+#define ll __int128_t
+
+PII g[N];
+int x[N],y[N];
+void solve()
+{ 
+  int n;cin>>n;
+  
+  for(itn i=1;i<=n;i++)
+  {
+  cin>>g[i].first>>g[i].second;
+  x[i]=g[i].first,y[i]=g[i].second;
+  }
+  if(n<=2)
+  {
+  	cout<<n<<endl;return;
+  }
+  itn min_x=*min_element(x+1,x+n+1);
+  int max_x=*max_element(x+1,x+n+1);
+  itn min_y=*min_element(y+1,y+n+1);
+  int max_y=*max_element(y+1,y+n+1);
+  
+  int area=(max_x-min_x+1)*(max_y-min_y+1) ;
+  sort(x+1,x+1+n);
+  sort(y+1,y+1+n);
+  for(int i=1;i<=n;i++)
+  {
+  	itn xi=g[i].first,yi=g[i].second;
+  	
+  	int minx=min_x;
+  	if(xi==min_x)
+  	{
+  		if(x[1]!=x[2])minx=x[2];
+	}
+	int maxx=max_x;
+	if(xi==max_x)
+	{
+		if(x[n]!=x[n-1])maxx=x[n-1];
+	}
+	int miny=min_y;
+	if(yi==min_y)
+	{
+		if(y[1]!=y[2])miny=y[2];
+	}
+	int maxy=max_y;
+	if(yi==max_y)
+	{
+		if(y[n]!=y[n-1])maxy=y[n-1];
+	}
+	int a=maxx-minx+1;
+	int b=maxy-miny+1;
+	int new_area;
+	if(a*b>(n-1))new_area=a*b;
+	else new_area=min((a+1)*b,a*(b+1));
+	area=min(new_area,area);
+  }
+  
+  cout<<area<<endl;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
