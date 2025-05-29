@@ -1,0 +1,60 @@
+https://codeforces.com/contest/2114/problem/E
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int M=1e5+10;
+const int mod=998244353;
+#define ll __int128_t
+
+int a[N];
+int f[N];
+int g[N];
+vector<int>m[N];
+void dfs(int u,int fa)
+{
+  	for(auto i:m[u])
+  	{   if(i==fa)continue;
+  	 	f[i]=max(a[i],a[i]-g[u]);
+  	 	g[i]=min(a[i],a[i]-f[u]);
+  	 	dfs(i,u);
+	}
+}
+void solve()
+{ 
+  int n;cin>>n;
+  for(itn i=1;i<=n;i++)cin>>a[i];
+  for(int i=1;i<=n;i++)m[i].clear();
+
+  for(int i=1;i<=n-1;i++)
+  {
+  	int u,v;
+  	cin>>u>>v;
+  	m[u].push_back(v);
+  	m[v].push_back(u);
+  } 
+  f[1]=a[1];
+  g[1]=a[1];
+  
+  dfs(1,0);
+  
+  for(int i=1;i<=n;i++)
+  cout<<f[i]<<" ";
+  cout<<endl;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
