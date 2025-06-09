@@ -1,0 +1,50 @@
+https://codeforces.com/contest/2117/problem/E
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int M=1e5+10;
+const int mod=998244353;
+#define ll __int128_t
+
+int a[N],b[N];
+void solve()
+{
+  itn n;cin>>n;
+  for(itn i=1;i<=n;i++)
+  cin>>a[i];
+  for(itn i=1;i<=n;i++)
+  cin>>b[i];
+  if(b[n]==a[n])
+  {
+  	cout<<n<<endl;
+	return;
+  }
+  map<int,bool>ma;
+  int ans=0;
+  for(int i=n-1;i>=1;i--) 
+  { //只要是之前出现过的数那么总有机会将他变成a[i]/b[i] 可以通过删除a[i]到所需数之间的某一列让其符合 
+  	if(a[i]==a[i+1]||b[i]==b[i+1]||a[i]==b[i]||ma[a[i]]||ma[b[i]])
+  	{
+  		ans=i;break;
+	}
+	ma[a[i+1]]=ma[b[i+1]]=true;
+  }
+  cout<<ans<<endl;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+  
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
