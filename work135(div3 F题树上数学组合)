@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int M=1e5+10;
+const int mod=1e9+7;
+#define ll __int128_t
+
+int lca;
+vector<int>q[N],lens;//lens存叶子节点 
+int pw[N];
+ 
+void dfs(int u,int fa,int len)
+{
+	if(q[u].size()>2)lca=len;
+	bool f=true;
+	for(auto i:q[u])
+	{
+		if(i==fa)continue;
+		dfs(i,u,len+1);
+		f=false;
+	}
+	if(f)lens.push_back(len);
+}
+void solve()
+{
+  itn n;cin>>n;
+  for(int i=1;i<=n;i++)q[i].clear();
+  lens.clear();
+ 
+  for(int i=1;i<=n-1;i++)
+  {
+  	int u,v;cin>>u>>v;
+  	q[u].push_back(v);
+  	q[v].push_back(u);
+  }
+  q[1].push_back(0);
+  dfs(1,0,1);
+ 
+  if(lens.size()>2)cout<<0<<endl;//叶子只能一个是1一个是2多的话肯定不行 
+  else if(lens.size()==1)//一个链子 
+  { 
+  	cout<<pw[n]<<endl;
+  } 
+  else //一个Y型树 
+  {
+  	int res=abs(lens[0]-lens[1]);
+  	int x=res+lca;
+  	if(res)
+  	{
+  	  cout<<(pw[x]+pw[x-1])%mod<<endl;//当短的那一边叶子是1时是pw[x]	
+	}
+	else 
+	cout<<(2*pw[x])%mod<<endl;
+  }
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+   
+   pw[0]=1;
+   for(int i=1;i<N;i++)
+   pw[i]=(2*pw[i-1])%mod;
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
