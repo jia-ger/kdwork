@@ -1,0 +1,50 @@
+https://codeforces.com/problemset/problem/2116/B
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int M=1e5+10;
+const int mod=998244353;
+#define ll __int128_t
+
+int p[N],q[N];
+int pw[N];
+void solve()
+{
+ itn n;cin>>n;
+ for(int i=0;i<n;i++)cin>>p[i];
+ for(itn i=0;i<n;i++)cin>>q[i];
+ for(int i=0,j=0,k=0;k<n;k++)//线性比较2^a+2^b和2^c+2^d大小
+ {
+ 	if(p[k]>p[i])i=k;
+ 	if(q[k]>q[j])j=k;
+ 	if(p[i]!=q[j])
+ 	{
+ 	 if(p[i]>q[j])cout<<(pw[p[i]]+pw[q[k-i]])%mod<<" ";
+ 	 else cout<<(pw[q[j]]+pw[p[k-j]])%mod<<" ";
+	}
+	else //这里为什么只能是pw[max(p[k-j],q[k-i])]而不能max(pw[q[k-i]],pw[p[k-j]]),因为指数比较会返回较大值直接赋值就行，计算后的结果很大，如果用第二个max返回可能会发生溢出导致结果不对
+	cout<<(pw[p[i]]+pw[max(p[k-j],q[k-i])])%mod<<" ";
+ }
+ cout<<endl;
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+   
+   pw[0]=1;
+   for(int i=1;i<N;i++)
+   pw[i]=(2*pw[i-1])%mod;
+   
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
