@@ -1,0 +1,52 @@
+https://codeforces.com/problemset/problem/1986/D
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int M=1e5+10;
+const int mod=998244353;
+#define ll __int128_t
+
+
+void solve()
+{
+ itn n;cin>>n;
+ string s;cin>>s;
+ if(n==2)cout<<stoi(s)<<endl;
+ else if(n==3&&(s[0]=='0'||s[2]=='0'))cout<<0<<endl;
+ else if(n>3&&s.find("0")!=-1)cout<<0<<endl;
+ else if(s=="101")cout<<1<<endl;
+ else
+ {
+ 	int res=1e18;
+ 	for(int i=0;i<n-1;i++)//因为有n-2个运算符，所以肯定有一个两位数，设置断点取两位数 
+ 	{
+ 	  int ans=0; 
+	  for(int j=0;j<n;j++)
+	  { int c=s[j]-'0';
+	  	if(j==i+1)continue;
+	  	if(j==i)c=c*10+(s[j+1]-'0');
+	  	if(c==1)continue;
+	  	ans+=c;  	
+	  }
+	  res=min(res,ans);	
+	}
+	cout<<res<<endl;
+ }
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+   
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
