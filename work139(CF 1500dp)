@@ -1,0 +1,74 @@
+https://codeforces.com/problemset/problem/2115/A
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=5050;
+const int M=1e5+10;
+const int mod=998244353;
+#define ll __int128_t
+
+int a[N];
+void solve()
+{
+  itn n;cin>>n;
+  for(int i=1;i<=n;i++)
+  cin>>a[i];
+  int cn=a[1]; 
+  for(itn i=2;i<=n;i++)
+  cn=__gcd(a[i],cn);
+  int ans=0;
+  for(int i=1;i<=n;i++)
+  {
+   if(a[i]==cn)ans++;	
+  } 
+  if(ans){
+  	cout<<n-ans<<endl;return;
+  }//如果原数组存在数组的最大公因数，则直接把其他不是的变成公因数
+  vector<int>q;
+  ans=0;
+  for(int i=1;i<=n;i++)
+  q.push_back(a[i]);
+  sort(q.begin(),q.end());
+  q.erase(unique(q.begin(),q.end()),q.end());
+  
+  while(1)
+  {
+  	ans++;
+  	bool f=false;
+  	vector<int>cm; 
+	for(int i=0;i<q.size();i++)
+	   for(int j=1;j<=n;j++)
+	   {
+	   	int x=__gcd(a[j],q[i]);
+	   	cm.push_back(x);
+		   if(x==cn)
+		   {
+		    f=true;
+			break;	
+		   } 
+	   }
+	   if(f)break;
+	   sort(cm.begin(),cm.end());
+	   cm.erase(unique(cm.begin(),cm.end()),cm.end());
+	   q=cm; 
+  }
+  cout<<n-1+ans<<endl;//ans步产生一个cn 然后把其余的变成cn 
+   
+  
+}
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	
+   
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+	return 0;
+}
+  
