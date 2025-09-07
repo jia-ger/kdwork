@@ -1,0 +1,45 @@
+https://codeforces.com/contest/2069/problem/C
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int 
+#define icn cin
+#define int long long 
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int mod=998244353;
+const int INF=1e9;
+
+int a[N];
+void solve()
+{
+  int n;
+  cin>>n;
+  for(int i=1;i<=n;i++)
+  cin>>a[i];
+  int cnt=0,now=0,ans=0;
+  //答案只会是 12223这种 k个2 产生2^k-1种可能
+  for(int i=n;i>=1;i--)
+  {
+    if(a[i]==3)//见3 2^k增加一项
+    {
+      cnt++,now++;
+    }
+    else if(a[i]==1)//遇见1计算贡献 2^k-3的个数
+    ans=(ans+now-cnt+mod)%mod;
+    else
+    now=(now<<1)%mod;
+  }
+  cout<<ans<<endl;
+}
+
+
+signed main()
+{
+   cin.tie(0)->sync_with_stdio(0); 
+   int T=1;
+   cin>>T;
+   while(T--)solve();
+    return 0;
+}
