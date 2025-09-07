@@ -1,0 +1,72 @@
+https://codeforces.com/contest/2127/problem/C
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int 
+#define icn cin
+#define int long long 
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int mod=998244353;
+const int INF=1e9;
+
+struct abd{
+  int a,b;
+}p[N];
+void solve()
+{
+  int n,k;
+  cin>>n>>k;
+  for(int i=1;i<=n;i++)
+  cin>>p[i].a;
+  for(int i=1;i<=n;i++)
+  cin>>p[i].b;
+  for(int i=1;i<=n;i++)//可以发现k其实没用 因为选i,j只会使结果增加 所以最优就是一直选同一个i,j
+  {
+    if(p[i].a>p[i].b)
+    {
+      int w=p[i].b;
+      p[i].b=p[i].a;
+      p[i].a=w;
+    }
+  }
+  sort(p+1,p+1+n,[](abd q,abd P){if(q.a!=P.a)return q.a<P.a;else return q.b<P.b;});
+  
+  int f=1;
+  for(int i=1;i<n;i++)
+  {
+    if(p[i+1].a<=p[i].b)
+    {
+      f=0;break;
+    }
+  
+  }
+  int ans=0;
+  for(int i=1;i<=n;i++)
+  ans+=p[i].b-p[i].a;
+  if(f)
+  {
+    int minn=INT_MAX;
+    for(int i=1;i<n;i++)
+    {
+     minn=min(minn,p[i+1].a-p[i].b);
+    }
+    ans=ans+2*minn;
+    cout<<ans<<endl;
+  }
+  else
+  {
+    cout<<ans<<endl;
+  }
+}
+
+
+signed main()
+{
+   cin.tie(0)->sync_with_stdio(0); 
+   int T=1;
+   cin>>T;
+   while(T--)solve();
+    return 0;
+}
