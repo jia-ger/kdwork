@@ -1,0 +1,57 @@
+https://codeforces.com/contest/2126/problem/E
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int 
+#define icn cin
+#define int long long 
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int mod=1e9;
+const int INF=1e9;
+
+int p[N],s[N];
+void solve()
+{
+  itn n;cin>>n;
+  for(int i=1;i<=n;i++)
+  cin>>p[i];
+  for(int i=1;i<=n;i++)
+  cin>>s[i];
+  if(n==1&&p[1]==s[1])
+  {
+   cout<<"YES"<<endl;
+   return;
+  }
+  if(p[n]!=s[1])//整体gcd
+  {
+    cout<<"NO"<<endl;
+    return;
+  }
+  for(int i=1;i<n;i++)
+  {
+   if(p[i]%p[i+1]||s[i+1]%s[i])//前缀与后缀gcd 后一项总是前一项的约数
+   {
+      cout<<"NO"<<endl;
+      return;
+   }
+   if(__gcd(p[i],s[i+1])!=p[n])//前缀与后缀的gcd等于整体的gcd
+   {
+     cout<<"NO"<<endl;
+     return;
+   }
+  }
+  cout<<"YES"<<endl;
+
+}
+
+
+signed main()
+{
+   cin.tie(0)->sync_with_stdio(0); 
+   int T=1;
+   cin>>T;
+   while(T--)solve();
+    return 0;
+}
