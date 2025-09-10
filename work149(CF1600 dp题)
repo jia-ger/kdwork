@@ -1,0 +1,47 @@
+https://codeforces.com/problemset/problem/1875/D
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+
+map<int,int> cnt;
+int dp[5005];
+void solve()
+{       int n; 
+  	    cin >> n;
+		cnt.clear();
+		memset(dp, 0x3f, sizeof(dp));
+		for (int i = 1, tmp; i <= n; i++) {
+			cin >> tmp;
+			cnt[tmp]++;
+		}
+		int mex = 0;
+		while (cnt[mex]) mex++;
+		dp[mex] = 0;
+		for (int i = mex; i >= 1; i--) {
+			for (int j = 0; j < i; j++) {
+				dp[j] = min(dp[j], dp[i] + (cnt[j] - 1) * i + j);
+			}
+		}
+		cout << dp[0] << endl;
+} 
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
