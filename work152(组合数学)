@@ -1,0 +1,50 @@
+https://codeforces.com/problemset/problem/1974/C
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+int n,z[200001],ans;
+map<pair<int,int>,int>a,b,c,chu;//chu是为了方便初始化 
+map<tuple<int,int,int>,int>d,chu1;//d存储a,b,c都相同的三元组个数，tuple和pair的区别是tuple存储3个元素 
+void solve()
+{       
+        cin>>n;
+		ans=0;
+		a=b=c=chu;
+		d=chu1;
+		for(int i=1;i<=n;i++){
+			cin>>z[i];
+		}
+		for(int i=3;i<=n;i++){//a[i-2],a[i-1],a[i]这个三元组 
+			ans+=a[make_pair(z[i-2],z[i-1])];//a,b相同的三元组个数 
+			ans+=b[make_pair(z[i-2],z[i])];//a,c相同的三元组个数  
+			ans+=c[make_pair(z[i-1],z[i])];//b,c相同的三元组个数 
+			ans-=d[make_tuple(z[i-2],z[i-1],z[i])]*3;//ans要减去3*a,b,c都相同的三元组个数  
+			//以上是统计答案 
+			a[make_pair(z[i-2],z[i-1])]++;
+			b[make_pair(z[i-2],z[i])]++;
+			c[make_pair(z[i-1],z[i])]++;
+			d[make_tuple(z[i-2],z[i-1],z[i])]++; 
+		}cout<<ans<<"\n";
+ 
+} 
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
