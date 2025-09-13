@@ -1,0 +1,68 @@
+https://codeforces.com/contest/2148/problem/E
+
+解析：借鉴了暑期集训work69的dp思路 来分析当一段区间每个数都有限制时应如何解决
+并且看数据范围ai<n而不是1e9那种 就可以用数组来存标准状态 ，非常方便
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+int n,k,a[N], dp[N]; deque<int> q[N];//dp[i]以i结尾的数量 
+map<int,int>mp;
+void solve()
+{       
+
+ cin>>n>>k;
+ 
+ memset(dp,0,sizeof dp);
+ mp.clear();
+ for (int i = 1; i <= n; i++) q[i].clear();
+ 
+ for(int i=1;i<=n;i++)cin>>a[i];
+ for(int i=1;i<=n;i++)
+ mp[a[i]]++;
+ vector<int>ans(n+1);
+ for(auto i:mp)
+ {
+ 	if(i.second%k)
+ 	{
+ 	 cout<<0<<endl;
+     return;	
+	}
+	ans[i.first]=i.second/k;
+ }
+  
+  int l=0;//合法左区间 
+  for (int i = 1; i <= n; i++) {
+			q[a[i]].emplace_back(i);
+			l=max(1LL,l);
+			if (q[a[i]].size() > ans[a[i]])l=max(l,q[a[i]].front()+1LL),q[a[i]].pop_front();
+			int len=i-l+1;
+			dp[i]=len;
+		}
+		itn answer=0;
+//		for(int i=1;i<=n;i++)
+//		cout<<dp[i]<<" \n"[i==n];
+		for(int i=1;i<=n;i++)
+		answer+=dp[i];
+		cout<<answer<<endl;
+} 
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
