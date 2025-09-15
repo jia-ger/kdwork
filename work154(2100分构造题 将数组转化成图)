@@ -1,0 +1,82 @@
+https://codeforces.com/problemset/problem/1877/E
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+void solve()
+{
+   int n;
+    cin >> n;
+    
+    vector<int> a(n + 1),d(n + 1);
+    for(int i = 1; i <= n; i++){
+        cin >> a[i];
+        d[a[i]]++;//想象成一个图 下标指向下标对应的值 统计度数 
+    }
+    
+    queue<int> q;
+    vector<int> num(n + 1);
+    for(int i = 1; i <= n; i++){
+        if(d[i] == 0){
+            q.push(i);
+            num[i] = 1;//把未被圈的点染成白色 圈的点染成黑色 
+        }
+    }
+    while(!q.empty()){
+        int u = q.front(); q.pop();
+        int v = a[u];//u是下标 v是对应的值 u指向v 
+        if(num[v] != 0) continue;//标记过 
+        num[v] = 2;
+
+        d[a[v]]--;
+        if(d[a[v]] == 0){
+            num[a[v]] = 1;
+            q.push(a[v]);
+        }
+    }
+
+    for(int i = 1; i <= n; i++){//判断一个未被标记的大环 
+        if(num[i] == 0){
+            num[i] = 1;
+            int pre = i, cur = a[i], cnt = 1;//当前节点 指向节点 节点个数 
+            while(cur != i){
+                num[cur] = 3 - num[pre];
+                pre = cur;
+                cur = a[cur];
+                cnt++;
+            }
+            if(cnt & 1){
+                cout << "-1\n";//奇数环的话会出现染色紊乱实现不了 
+                return;
+            }
+        }
+    }
+    vector<int> ans;
+    for(int i = 1; i <= n; i++){
+        if(num[i] == 1) ans.push_back(a[i]);
+		//白的指向的则为被圈的点 因为可能重复圈之前圈过的点所以不能以黑点为参考 
+    }
+
+    cout << ans.size() << "\n";
+    for(auto i : ans) cout << i << " ";
+    cout << "\n";
+
+}
+
+
+signed main() {
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+//   cin>>T;
+   while(T--)solve();
+    return 0;
+}
