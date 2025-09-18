@@ -1,0 +1,55 @@
+https://codeforces.com/problemset/problem/1878/E
+
+解析：st表预处理 片段与只有o(nlogn)查询速度o(1)
+
+#include<bits/stdc++.h>
+using namespace std;
+const int maxn=2e5+10;
+int n,m,x[maxn],st[maxn][20];//st表 表示从 i出发 长度为 2^j的按位与 
+int query(int l,int r){
+	int k=log2(r-l+1);//最多是2的几次方   
+	return (st[l][k]&st[r-(1<<k)+1][k]);//子区间可以重叠 重叠无影响 r-是右端点为r 倒推右边区间左端点 
+}
+void solve(){
+	cin>>n;
+	for(int i=1;i<=n;i++){
+		cin>>x[i];
+		st[i][0]=x[i];//长度为1的按位与 
+	}
+	for(int i=1;(1<<i)<=n;i++){
+		for(int j=1;j<=n;j++){
+			if(j+(1<<i)-1<=n){
+				st[j][i]=(st[j][i-1]&st[j+(1<<(i-1))][i-1]);//大区间可以拆成两个小区间 
+			}
+		}
+	}
+	cin>>m;
+	while(m--){
+		int l,k;
+		cin>>l>>k;
+		if(x[l]<k){
+			cout<<-1<<" ";
+			continue;
+		}
+		int L=l,R=n+1;
+		while(L<R){
+			int mid=L+R>>1;
+			if(query(l,mid)<k){
+				R=mid;
+			}
+			else{
+				L=mid+1;
+			}
+		}
+		cout<<L-1<<" ";
+	}
+	cout<<endl;
+}
+int main(){
+ 	ios::sync_with_stdio(false);
+	cin.tie(0),cout.tie(0);
+	int t;
+	cin>>t;
+	while(t--) solve();
+	return 0;
+}
