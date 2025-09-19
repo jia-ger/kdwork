@@ -1,0 +1,40 @@
+https://codeforces.com/problemset/problem/1879/D
+
+#include<bits/stdc++.h>
+#define int long long
+using namespace std;
+const int N = 3e5 + 5, mod = 998244353;
+int n, a[N], cnt0, cnt1, sum0, sum1, b[N], ans;
+signed main(){
+	scanf("%lld", &n);
+	for(int i = 1; i <= n; i++){
+		scanf("%lld", &a[i]);
+	}
+	for(int dep = 0; dep < 30; dep++){
+		for(int i = 1; i <= n; i++){
+			b[i] = a[i] >> dep & 1;//第i个数字在这一位上的二进制值
+		}
+    //cnt0以当前位置结尾，该位为0的子数组个数
+    //cnt1以当前位置结尾，该位为1的子数组个数
+    //sum0：以当前位置结尾，该位为0的子数组的起始位置索引和
+    //sum1：以当前位置结尾，该位为1的子数组的起始位置索引和
+
+		cnt0 = cnt1 = sum0 = sum1 = 0;
+		for(int i = 1; i <= n; i++){
+			sum1 += cnt1, sum0 += cnt0;
+			if(b[i] == 0){
+				cnt0++, sum0++;
+			}
+			else{
+       //异或操作会翻转状态
+				swap(sum1, sum0);
+				swap(cnt1, cnt0);
+				sum1++, cnt1++;
+			}
+			sum1 %= mod, sum0 %= mod;
+			(ans += (1ll << dep) * sum1 % mod) %= mod;
+		}
+	}
+	printf("%lld\n", ans);
+	return 0;
+}
