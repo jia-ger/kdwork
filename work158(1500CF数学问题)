@@ -1,0 +1,56 @@
+https://codeforces.com/problemset/problem/2067/C
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=3e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+long long biao[20] = {0ll , 9ll , 99ll , 999ll , 9999ll , 99999ll , 999999ll , 9999999ll , 99999999ll , 999999999ll , 9999999999ll};
+int n;
+bool check(int q)
+{
+	long long k;
+	for(int i = 0 ; i <= 10 ; i++)
+	{
+		k = n + biao[i] * q;
+		while(k)
+		{
+			if(k % 10 == 7)
+			{
+				return 1;
+			}
+			k /= 10;
+		}
+	}
+	return 0;
+}
+void solve()
+{       
+ cin>>n;
+ for(int i = 0 ; i <= 10 ; i++)
+		{
+			if(check(i))
+			{
+				cout << i << '\n';
+				break;
+			}
+        }
+} 
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
