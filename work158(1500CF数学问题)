@@ -11,7 +11,7 @@ const int N=3e5+10;
 const int INF=1e18;
 const int mod=998244353;
 #define ll __int128
-
+//打表枚举
 long long biao[20] = {0ll , 9ll , 99ll , 999ll , 9999ll , 99999ll , 999999ll , 9999999ll , 99999999ll , 999999999ll , 9999999999ll};
 int n;
 bool check(int q)
@@ -34,7 +34,7 @@ bool check(int q)
 void solve()
 {       
  cin>>n;
- for(int i = 0 ; i <= 10 ; i++)
+ for(int i = 0 ; i <= 10 ; i++)//发现999..可以看成10^n-1所以到7最大执行9次
 		{
 			if(check(i))
 			{
