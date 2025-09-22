@@ -1,0 +1,45 @@
+https://codeforces.com/contest/2146/problem/A
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+int cnt[105]; 
+void solve()
+{
+   memset(cnt,0,sizeof cnt);	
+   itn n;cin>>n;
+   for(int i=1;i<=n;i++)
+   {
+     int x;
+	 cin>>x;
+	 cnt[x]++;	
+   } 
+   int ans=0;
+   for(int i=1;i<=n;i++)//枚举平衡长度 
+   {
+   	 int res=0;
+     for(itn j=1;j<=n;j++)
+	 {
+	  if(cnt[j]>=i)
+	  res+=i;	
+	 }	
+	 ans=max(ans,res);
+   }   
+   cout<<ans<<endl; 
+}
+signed main() {
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+    return 0;
+}
