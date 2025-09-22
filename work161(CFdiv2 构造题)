@@ -1,0 +1,54 @@
+https://codeforces.com/contest/2146/problem/C
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+
+void solve()
+{    
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    
+    vector<int> p(n);
+    iota(p.begin(), p.end(), 1);//递增填充数组 从1开始 
+    
+    for (int l = 0, r = 0; l < n; l = r) {
+        while (r < n && s[l] == s[r]) {
+            r++;
+        }
+        if (s[l] == '0') {
+            if (r - l == 1) {
+                std::cout << "NO\n";
+                return;
+            }
+            std::reverse(p.begin() + l, p.begin() + r);
+        }
+    }
+    
+    std::cout << "YES\n";
+    for (int i = 0; i < n; i++) {
+        std::cout << p[i] << " \n"[i == n - 1];
+    }
+}
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
