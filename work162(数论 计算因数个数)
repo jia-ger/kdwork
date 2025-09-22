@@ -1,0 +1,69 @@
+https://codeforces.com/problemset/problem/1878/F
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+//发现：a与n互质，所以他们的质因数互质，所以 d(a*n)=d(a)*d(n); 
+//d(n)*d(a)=n 所以 n一定要是d(n)的倍数 n%d(n)==0
+//假设n=a*b (a%d(n)*b%d(n))%d(n)==0 
+int qmi(int a,int b,int p)
+{
+	int t=1;
+	a=a%p;
+	while(b!=0)
+	{
+		if(b&1)t=t*a%p;
+		b>>=1;
+		a=a*a%p;
+	}
+	return t;
+}
+map<int,int>now,ori; 
+void solve()
+{
+ now.clear();	
+ itn n,q;icn>>n>>q;
+ for(int i=2;i<=(int)sqrt(n);i++)
+   while(n%i==0)now[i]++,n/=i; 
+ 
+  if(n>1)now[n]++;
+  
+ ori=now;
+ while(q--)
+ {
+  int k;cin>>k;
+  if(k==1)
+  {
+  	int x;cin>>x;
+    for(int i=2;i<=(int)sqrt(x);i++)
+      while(x%i==0)now[i]++,x/=i; 
+ 
+    if(x>1)now[x]++;	
+    int ans=1,n=1;
+	for(auto i:now)ans*=(i.second+1);//计算因数个数 
+	for(auto i:now)(n*=qmi(i.first,i.second,ans))%=ans;//计算现在的n
+	if(n%ans==0)cout<<"YES"<<endl;
+	else cout<<"NO"<<endl;
+  }
+  else
+  now=ori;
+  
+ }
+ cout<<endl; 
+}
+signed main() {
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+    return 0;
+}
