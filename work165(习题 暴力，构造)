@@ -1,0 +1,49 @@
+https://codeforces.com/problemset/problem/1882/B
+
+为了使得选出的集合的并集不是所有集合的并集，我们只要让其中至少一个数不在里面即可。枚举 S 中的每一个数，每次求出不包含这个元素的集合个数，这些数的最大值就是答案。
+
+#include<bits/stdc++.h>
+using namespace std;
+namespace _wrk{;
+set<int>p[100];
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+		int n;
+		cin>>n;
+		set<int>s;
+		for(int i=1;i<=60;i++){
+			p[i].clear();
+		}
+		for(int i=1;i<=n;i++){
+			int k;
+			cin>>k;
+			while(k--){
+				int a;
+				cin>>a;
+				s.insert(a);
+				p[i].insert(a);
+			}
+		}
+		int ans=0;
+		for(auto x:s){
+			set<int>pp;
+			for(int i=1;i<=n;i++){
+				if(p[i].find(x)==p[i].end()){
+					for(auto y:p[i]){
+						pp.insert(y); 
+					}
+				}
+			}
+			ans=max<int>(ans,pp.size());
+		}
+		cout<<ans<<endl;
+	}
+	return 0;
+}
+}
+signed main(){
+	   return _wrk::main();
+}
+
