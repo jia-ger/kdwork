@@ -1,0 +1,64 @@
+https://codeforces.com/contest/2149/problem/D
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+void solve()
+{   
+    int n;
+    cin >> n;
+    string s;
+    cin >> s;
+    // 收集所有 'a' 和 'b' 的位置索引
+    vector<int> a_pos, b_pos;
+    for (int i = 0; i < n; i++) {
+        if (s[i] == 'a') a_pos.push_back(i);
+        else b_pos.push_back(i);
+    }
+    
+    int count_a = a_pos.size();
+    int count_b = b_pos.size();
+    
+    // 计算把某类字符聚集到最优连续位置的最小代价
+    auto min_cost = [&](const vector<int>& pos, int cnt) -> int {
+        if (cnt == 0) return 0;
+        
+        // 计算 q[k] = pos[k] - k
+        vector<int> q(cnt);
+        for (int k = 0; k < cnt; k++) {
+            q[k] = pos[k] - k;
+        }
+        
+        // 排序找中位数
+        sort(q.begin(), q.end());
+        int median = q[cnt / 2];  // 中位数
+        
+        // 计算最小代价
+        int cost = 0;
+        for (int k = 0; k < cnt; k++) {
+            cost += abs(q[k] - median);
+        }
+        
+        return cost;
+    };
+    
+    int ans = min(min_cost(a_pos, count_a), min_cost(b_pos, count_b));
+    cout << ans << endl;
+  
+}
+signed main() {
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+    return 0;
+}
