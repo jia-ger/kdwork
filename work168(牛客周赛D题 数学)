@@ -1,0 +1,89 @@
+https://ac.nowcoder.com/acm/contest/117763/D
+
+分析：a × 10^len(b) + b ≡ 0 (mod 11)
+10^0 = 1 ≡ 1 (mod 11)
+10^1 = 10 ≡ -1 (mod 11)  
+10^2 = 100 ≡ 1 (mod 11)
+10^3 = 1000 ≡ -1 (mod 11)
+len(b)是偶数
+a × 1 + b ≡ 0 (mod 11)
+=> a + b ≡ 0 (mod 11)
+=> a ≡ -b (mod 11)
+len(b)是奇数
+a × (-1) + b ≡ 0 (mod 11)
+=> -a + b ≡ 0 (mod 11)
+=> a ≡ b (mod 11)
+从 odd_cnt[r_i] 中找：这些数的长度是奇数，需要余数相等
+从 even_cnt[target] 中找：这些数的长度是偶数，需要余数互补
+但要减去自身（如果自己在对应的组里）。
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+
+void solve()
+{   
+  int n;
+    cin >> n;
+    vector<int> a(n);
+    vector<int> len(n);
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+        len[i] = to_string(a[i]).length();
+    }
+    
+    unordered_map<int, int> even_mod; 
+    unordered_map<int, int> odd_mod;  
+    
+    for (int i = 0; i < n; i++) {
+        int r = a[i] % 11;
+        if (len[i] % 2 == 0) {
+            even_mod[r]++;
+        } else {
+            odd_mod[r]++;
+        }
+    }
+    
+    long long total = 0;
+    
+    for (int i = 0; i < n; i++) {//遍历以谁开头
+        int r = a[i] % 11;
+        int target = (11 - r) % 11;
+        
+        if (len[i] % 2 == 0) {
+            int count_odd = odd_mod[r];
+            int count_even = even_mod[target];
+
+            if (a[i] % 11 == target) {
+                count_even--;
+            }
+            total += count_odd + count_even;
+        } else {
+            int count_odd = odd_mod[r];
+            int count_even = even_mod[target];
+            if (a[i] % 11 == r) {
+                count_odd--;
+            }
+            
+            total += count_odd + count_even;
+        }
+    }
+
+    cout << total << endl;
+   
+}
+signed main() {
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+//   cin>>T;
+   while(T--)solve();
+    return 0;
+}
