@@ -1,0 +1,82 @@
+https://codeforces.com/problemset/problem/1882/D
+
+思路：https://oiwiki.org/dp/tree/#%E6%8D%A2%E6%A0%B9-dp
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+
+//换根dp 
+int a[N];
+int dp[N]; 
+int cnt[N];
+void solve()
+{   
+   memset(a,0,sizeof a);
+   memset(dp,0,sizeof dp);
+   memset(cnt,0,sizeof cnt);
+   int n;cin>>n;
+   for(int i=1;i<=n;i++)
+   cin>>a[i];
+   vector<vector<int>>q(n+1);
+   vector<int>ans(n+1,0);
+   for(int i=1;i<n;i++)
+   {
+   	int u,v;icn>>u>>v;
+   	q[u].push_back(v);
+	q[v].push_back(u);    
+   } 
+   //先预处理一下节点个数 
+   //通用引用是两个引用符号 
+    auto dfs1=[&](auto &&self,int x,int fa)->void{
+     cnt[x]=1;
+	 for(auto e:q[x])
+	 {
+	   if(e==fa)continue;
+	   self(self,e,x);
+	   cnt[x]+=cnt[e];	
+	   dp[e]+=cnt[e]*(a[x]^a[e]);//计算当前子节点子树都变为父节点的代价 
+	   dp[x]+=dp[e]; 
+	 } 
+   }; 
+   dfs1(dfs1,1,0);
+   ans[1]=dp[1]; 
+   auto dfs2=[&](auto &&self,int x,int fa)->void{
+   	 for(auto e:q[x])//让e为根 
+   	 {
+   	   if(e==fa)continue;
+	   int m1=dp[x];
+	   int m2=cnt[x];
+	   int m3=dp[e];
+	   dp[x]-=cnt[e]*(a[e]^a[x])+dp[e];
+	   cnt[x]-=cnt[e];
+	   cnt[e]=n;
+	   dp[e]+=cnt[x]*(a[e]^a[x])+dp[x];
+	   ans[e]=dp[e];
+	   self(self,e,x);
+	   dp[x]=m1;
+	   cnt[x]=m2;
+	   dp[e]=m3;	  	
+	 }
+   };
+   dfs2(dfs2,1,0);
+   for(int i=1;i<=n;i++)
+   cout<<ans[i]<<" ";
+   cout<<endl; 
+}
+signed main() {
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+    return 0;
+}
