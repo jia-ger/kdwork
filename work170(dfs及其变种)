@@ -1,0 +1,66 @@
+https://codeforces.com/problemset/problem/1881/F
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+//找一条链 最远标记构成的链子就行，链子外f[i]肯定大于里面的
+//链子里最小值 就是链子长度L/2（上取整） 
+int f[N];
+void solve()
+{    
+  int n,k;icn>>n>>k;
+  memset(f,0,sizeof f);
+  for(int i=1;i<=k;i++)
+  {
+  	int x;cin>>x;
+  	f[x]=1;
+  }
+  vector<vector<int>>q(n+1);
+  for(int i=1;i<n;i++)
+  {
+  	int u,v;cin>>u>>v;
+  	q[u].push_back(v);
+  	q[v].push_back(u);
+  }
+  int len=0;
+  int p=0;
+  auto dfs=[&](auto &&self,int x,int fa,int dis)->void{
+     if(f[x]&&dis>len)
+     {
+     	len=dis;
+     	p=x;
+	 }
+     for(auto i:q[x])
+     {
+     	if(i==fa)continue;
+     	self(self,i,x,dis+1);
+	 }
+	 
+  };
+  dfs(dfs,1,0,0);
+  len=0;
+  dfs(dfs,p,0,0);
+  int ans=(len+1)/2;
+  cout<<ans<<endl;	
+  
+}
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
