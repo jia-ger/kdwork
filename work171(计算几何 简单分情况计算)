@@ -1,0 +1,44 @@
+https://codeforces.com/problemset/problem/1886/B
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+#define disAO sqrt((ax * ax) + (ay * ay))
+#define disAP sqrt((ax - px) * (ax - px)+ (ay - py) * (ay - py))
+#define disBO sqrt((bx * bx) + (by * by))
+#define disBP sqrt((bx - px) * (bx - px)+ (by - py) * (by - py))
+#define disAB sqrt((bx - ax) * (bx - ax)+ (by - ay) * (by - ay))
+void solve()
+{ 
+  double px,py,ax,ay,bx,by;
+  cin>>px>>py>>ax>>ay>>bx>>by;
+    double AO = disAO, BP = disBP, AP = disAP, BO = disBO, d = disAB / 2.0;
+		// for case1: 一个圆覆盖所有
+		double r1 = min(max(AO, AP), max(BO, BP));
+		
+		// for case2: O 在 A，P 在 B, d 为 圆心距 
+		double r2 = max(max(AO, d), BP);
+		
+		// for case3: 和 case2 反过来
+		double r3 = max(max(BO, d), AP);
+   
+		printf("%.10lf\n",min({r1,r2,r3}));
+}
+
+signed main() {
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+
+   while(T--)solve();
+    return 0;
+}
