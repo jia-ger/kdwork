@@ -1,0 +1,63 @@
+https://codeforces.com/contest/2153/problem/D
+
+分析：每个块都可以划分为大小为 2和3的子块
+我们先尝试解决一个更简单的问题，即数组不是圆形的 dp[i]就是使a[1]...a[i]变得漂亮的操作数
+然后考虑原问题由于数块的长度不超过 3 所以将一个大小为3的块移动到最后就可以覆盖所有情况
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+int cost(int a,int b)
+{
+	return abs(a-b);
+}
+int cost(int a,int b,int c)
+{
+	int minn=min({a,b,c});
+	int maxx=max({a,b,c});
+	return maxx-minn;
+}
+int dp[N];
+int a[N];
+void solve()
+{ 
+  int n;cin>>n;
+  for(int i=1;i<=n;i++)cin>>a[i];
+  int ans=INF;
+  for(int i=0;i<4;i++)//因为分成大小为2/3的块 所以转3次就可以覆盖所有情况 
+  {
+  	dp[0]=0;
+  	dp[1]=INF;
+  	for(int j=2;j<=n;j++)
+	 {
+	 	dp[j]=dp[j-2]+cost(a[j],a[j-1]);
+	 	if(j>=3)
+	 	dp[j]=min(dp[j],dp[j-3]+cost(a[j],a[j-1],a[j-2]));
+	 } 
+	 ans=min(ans,dp[n]);
+	 for(int j=2;j<=n;j++)
+	 swap(a[j],a[j-1]);
+	 
+  }
+  cout<<ans<<endl;
+}
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
