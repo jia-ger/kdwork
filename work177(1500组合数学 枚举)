@@ -1,0 +1,42 @@
+https://codeforces.com/problemset/problem/1996/D
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+//a+b+c<=x 所以每个数小于x  
+void solve()
+{ 
+  int n,x,ans=0;
+	cin>>n>>x;
+	for(int a=1;a<x;a++){
+		for(int b=1;b<x;b++){
+			if(a*b>n){//ab<=n-a-b ab<=n 
+				break;
+			}
+			int c=max(0LL,min(x-a-b,(n-a*b)/(a+b)));//ac+bc+ab<=n和a+b+c<=x共同限制c 
+			ans+=c;
+		}
+	}
+	cout<<ans<<endl;
+
+}
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
