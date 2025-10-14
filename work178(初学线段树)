@@ -1,0 +1,82 @@
+https://www.acwing.com/problem/content/description/246/
+
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+const int  N=5e5+10;
+
+struct abd{
+    int l,r;
+    int sum,tmax,lmax,rmax;
+}tr[N*4];
+int w[N];
+void pushup(abd &u,abd &l,abd &r)
+{
+    u.sum=l.sum+r.sum;
+
+    u.lmax=max(l.lmax,l.sum+r.lmax);
+    u.rmax=max(r.rmax,r.sum+l.rmax);
+    u.tmax=max({l.tmax,r.tmax,l.rmax+r.lmax});
+}
+void pushup(int u)
+{
+   pushup(tr[u],tr[u<<1],tr[u<<1|1]);
+}
+void build(int u,int l,int r)
+{
+  
+    if(l==r)
+    {
+        tr[u]={l,r,w[r],w[r],w[r],w[r]};
+        return;
+    }
+    tr[u].l=l,tr[u].r=r;
+    int mid=l+r>>1;
+    build(u<<1,l,mid),build(u<<1|1,mid+1,r);
+    pushup(u);
+}
+abd query(int u,int l,int r)
+{
+    if(tr[u].l>=l&&tr[u].r<=r)return tr[u];
+    
+    int mid=tr[u].l+tr[u].r>>1;
+    if(r<=mid)return query(u<<1,l,r);
+    else if(l>mid)return query(u<<1|1,l,r);
+    else 
+    {   abd res;
+        auto left=query(u<<1,l,r);
+        auto right=query(u<<1|1,l,r);
+        pushup(res,left,right);
+        return res;
+    }
+}
+void modify(int u,int x,int v)//把第x个数改成v
+{
+    if(tr[u].l==x&&tr[u].r==x)tr[u]={x,x,v,v,v,v};
+    else
+    {
+        int mid=tr[u].l+tr[u].r>>1;
+        if(x<=mid)modify(u<<1,x,v);
+        else modify(u<<1|1,x,v);
+        pushup(u);
+    }
+}
+signed main()
+{
+   int n,m;cin>>n>>m;
+   for(int i=1;i<=n;i++)
+   cin>>w[i];
+   build(1,1,n);
+   int k,x,y;
+    while(m--)
+    {
+       cin>>k>>x>>y;    
+       if(k==1)
+       {
+           if(x>y)swap(x,y);
+           cout<<query(1,x,y).tmax<<endl;
+       }
+       else modify(1,x,y);
+    }
+    return 0;
+}
