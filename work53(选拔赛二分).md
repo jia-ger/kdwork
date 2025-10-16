@@ -7,6 +7,7 @@ K 个蘑菇时，求每个篮子中剩余蘑菇的个数。
 输出格式 输出 N 个整数，中间用空格隔开。当你一共吃了 K 个蘑菇时， i 个整数表示篮子 i 中剩余蘑菇的数量。
 
 题解
+```c++
 #include<bits/stdc++.h>
 using namespace std;
 #define int long long
@@ -44,3 +45,4 @@ signed main() {
        cout<<a[i]<<" "; //printf("%lld ",a[i]);
     return 0;
 }
+```
