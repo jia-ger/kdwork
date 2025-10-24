@@ -1,0 +1,56 @@
+https://codeforces.com/problemset/problem/1895/D
+
+分析：左右两边都异或起来可以推出b1^bj+1=a1^a2^...^aj
+bj+1=b1^sumj 
+那么实际上是只要确定了 b1 就可以算出所有的 bj
+​题目中要求要让 b 在 0∼n−1 之内，这实际上实在寻找一个 b1 使得异或出来的所有值越小越好，所以我们拆位，假设所有数字的第 i 位为 1 的个数大于为 0 的个数，那我们最好异或上一个 2^i
+ ，这样可以使大部分数字变小
+ 
+```
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+
+void solve()
+{
+	int n;
+    cin >> n;
+    vector<int> a(n);
+    for (int i = 1; i < n; i++) {
+        cin >> a[i];
+         a[i] ^= a[i - 1];
+    }
+    a[0] = 0;
+    int ans = 0;
+    for (int i = 0; i < 31; i++) {
+        int sum1 = 0, sum2 = 0;
+        for (int j = 0; j < n; j++) {
+            if (a[j] >> i & 1) sum1++;
+            else sum2++;
+        }
+        if (sum1 > sum2) ans |= 1 << i;
+    }
+    for (int i = 0; i < n; i++) a[i] ^= ans;
+    for (int i = 0; i < n; i++) cout << a[i] << ' ';
+} 
+
+
+signed main() 
+{
+	cin.tie(0)->sync_with_stdio(0);
+	int T=1;
+//	cin>>T;
+	while(T--)solve();
+
+	return 0;
+}
+```
