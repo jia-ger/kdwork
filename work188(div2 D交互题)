@@ -1,0 +1,56 @@
+https://codeforces.com/contest/2156/problem/D
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e4+10;
+const int INF=1e18;
+const int mod=1e9+7;
+#define ll __int128
+
+
+int n;
+int vis[N] = {0};
+//v是包括第n项的结果 pos是不包括第n项的结果 
+void slv(vector<int> v, vector<int> pos, int d) {
+	if (v.size()==1) {
+		cout << "! " << v[0] << endl;
+		return;
+	}
+	int cnt[2] = {0, 0};//初始化每一位上0/1 的个数 
+	for (auto i: v) cnt[i >> d & 1]++;//n个数的每一位 与1的情况 
+	for (auto i: pos) {//确定前n-1个数的每一位 
+		cout <<"? "<< i <<" "<< (1 << d) << endl;
+		cin >> vis[i];
+		cnt[vis[i]]--;
+	}
+	int x = (cnt[0] ? 0 : 1);//如果cnt[0]==0 说明 第n位与1 结果为1 反之结果为0 
+	vector<int> npos, nv;
+	for (auto i: v) if ((i >> d & 1) == x) nv.push_back(i);
+	for (auto i: pos) if (vis[i] == x) npos.push_back(i);
+	slv(nv, npos, d + 1);
+}
+void solve()
+{
+	cin >> n;
+	vector<int> v, pos;
+	for (int i = 1; i <= n; i++) v.push_back(i), pos.push_back(i);
+	pos.pop_back();
+	slv(v, pos, 0);
+     
+}
+
+
+signed main() {
+//	cin.tie(0)->sync_with_stdio(0); 交互题必须注释这条语句 
+	int T=1;
+	cin>>T;
+
+	while(T--)solve();
+
+	return 0;
+}
