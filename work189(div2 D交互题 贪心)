@@ -1,0 +1,64 @@
+https://codeforces.com/contest/2160/problem/D
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e6+10;
+const int INF=1e18;
+const int mod=1e9+7;
+#define ll __int128
+
+int n,val[N],ans[N];
+bool vis[N];
+vector<int> sk,sk1;
+int ask(vector<int> &sk)//标准的交互式查询 
+{
+    cout<<"? "<<sk.size()<<" ";
+    for(auto x : sk) cout<<x<<" ";
+    cout<<endl;
+ 
+    int res;
+    cin>>res;
+    return res;
+}
+
+void solve()
+{
+    cin>>n;
+    for(int i = 1;i <= 2 * n;++i) vis[i] = true;
+    sk.clear();
+    sk1.clear();
+ 
+    for(int i = 1;i <= 2 * n;++i) {
+        sk.push_back(i);
+        int w = ask(sk);
+        if(w > 0) sk.pop_back(),ans[i] = w,sk1.push_back(i),vis[i] = false;//第二次出现就可以确定 
+    }
+ 
+    for(int i = 1;i <= 2 * n;++i)
+        if(vis[i] == true) {
+            sk1.push_back(i);
+            ans[i] = ask(sk1);//每个数字就出现两次 所以把所有第二次出现的存进来，就可以知道第一次出现的数
+            sk1.pop_back();
+        }
+    cout<<"! ";
+    for(int i = 1;i <= 2*n;++i)cout<<ans[i]<<" ";
+
+    cout<<endl;
+     
+}
+
+
+signed main() {
+//	cin.tie(0)->sync_with_stdio(0);
+	int T=1;
+	cin>>T;
+
+	while(T--)solve();
+
+	return 0;
+}
