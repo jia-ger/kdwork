@@ -1,0 +1,71 @@
+https://codeforces.com/problemset/problem/2013/C
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+//#define endl '\n'
+typedef pair<int,int> PII;
+const int N=1e4+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+string ans;
+int n;
+int ask(string s)
+{
+	cout<<"? "<<s<<endl;
+	
+	int ans;
+	cin>>ans;
+	return ans;
+}
+
+
+void solve()
+{ 
+  cin>>n;
+  ans="";
+ 
+  while(ans.size()<n)
+  {
+  	bool a;
+  	cout<<"? "<<ans+'1'<<endl;
+  	cin>>a;
+  	if(a)
+  	{
+  	  ans+='1';
+		continue;	
+	}
+	cout<<"? "<<ans+'0'<<endl;
+	cin>>a;
+	if(a)ans+='0';
+	else break;
+  }
+  while(ans.size()<n)
+  {
+  	bool a;
+  	cout<<"? "<<'1'+ans<<endl;
+  	cin>>a;
+  	if(a)
+  	{
+  	    ans='1'+ans;
+		continue;	
+	}
+	ans='0'+ans;//因为后面已经完全匹配了，所以往前匹配只有两种情况 
+  }
+   cout<<"! "<<ans<<endl;
+}
+
+
+
+signed main(){
+//   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
