@@ -1,0 +1,57 @@
+https://codeforces.com/problemset/problem/2129/B
+
+分析：逆序：左侧有数比他小 
+取原值：贡献为左侧原来所有大于他的值
+取反转(反转后一定比原数大)：贡献为右侧所有原来大于他的值
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=5e3+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+int maxl[N],maxr[N];
+void solve()
+{ 
+   itn n;
+   cin>>n;
+   memset(maxl,0,sizeof maxl);
+   memset(maxr,0,sizeof maxr);
+   vector<int>a(n+1);
+   for(int i=1;i<=n;i++)
+   cin>>a[i]; 
+   
+   itn ans=0;
+   for(int i=1;i<=n;i++)
+   {
+   	 for(int j=1;j<i;j++)
+   	 if(a[j]>a[i])maxl[i]++;
+   	 
+   	 for(int j=n;j>i;j--)
+   	 if(a[j]>a[i])maxr[i]++;
+   } 
+   for(int i=1;i<=n;i++)
+   {
+   	 ans=ans+min(maxl[i],maxr[i]); 
+   }
+   
+   cout<<ans<<endl;
+}
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
