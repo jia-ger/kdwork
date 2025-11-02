@@ -1,0 +1,48 @@
+https://atcoder.jp/contests/abc300/tasks/abc300_f
+
+分析：复制自身且连续可以看成他的后缀加上他的前缀+若干个他本身
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e6+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+
+char s[N];
+int pre[N];
+void solve()
+{
+   int n,m,k;
+   cin>>n>>m>>k; 
+   scanf("%s",s+1);//cin>>s+1 有的编译器会CE
+	for(int i=1; i<=n; i++)	s[i+n] = s[i];
+	for(int i=1; i<=2 * n; i++)	pre[i] = pre[i-1] + (s[i] == 'x');
+	int ans = k / pre[n] * n,tmp = 0;
+	m -= k / pre[n];
+	k = k % pre[n];
+	for(int l=1,r = 1; l<=n; l++){
+		while(r + 1 <= 2 * n && pre[r + 1] <= k + pre[l-1]) ++r;
+		if(m == 1)	tmp = max(tmp,min(r,n) - l + 1);
+		else if(m > 1)	tmp = max(tmp,r - l + 1);
+	}
+	cout<<ans+tmp<<endl;
+   
+}
+
+
+signed main() {
+	// cin.tie(0)->sync_with_stdio(0);
+	int T=1;
+//	cin>>T;
+
+	while(T--)solve();
+
+	return 0;
+}
