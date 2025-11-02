@@ -1,0 +1,46 @@
+https://codeforces.com/problemset/problem/935/E
+https://www.luogu.com.cn/problem/CF935E
+
+#include <bits/stdc++.h>
+#define ls son [v] [0]
+#define rs son [v] [1]
+#define smaller i + j + (add < sub)
+#define bigger i + j + (add >= sub)
+using namespace std;
+const int M = 1e4 + 5;
+int add, sub, len, minn, tot = 1, pre = 1;
+int son [M] [2] , dad [M], dp [M] [105] [2];
+char ch[M];
+void build () {
+    len = strlen (ch + 1); minn = min (add, sub);
+    for (int i = 1; i < M; i ++)
+        for (int j = 0; j <= minn; j ++) {
+            dp [i] [j] [0] = -1e9;
+            dp [i] [j] [1] = 1e9;
+        }
+    for (int i = 1; i <= len; i ++)
+        if (ch [i] == '(' || ch [i] == '?') {
+            son [pre] [son [pre] [0] ? 1 : 0] = ++ tot;
+            dad [tot] = pre; pre = tot;
+        } else if (ch [i] == ')') pre = dad [pre];
+        else {
+            dp [tot] [0] [0] = dp [tot] [0] [1] = ch [i] - '0'; 
+            pre = dad [pre];
+        }
+}
+void dfs (int v) {
+    if (!ls) return;
+    dfs (ls); dfs (rs);
+    for (int i = 0; i <= minn; i ++)
+        for (int j = 0; i + j <= minn; j ++) {
+            dp [v] [smaller] [0] = max(dp [v] [smaller] [0], dp [ls] [i] [0] + dp [rs] [j] [0]);
+            dp [v] [bigger] [0] = max (dp [v] [bigger] [0], dp [ls] [i] [0] - dp [rs] [j] [1]);
+            dp [v] [smaller] [1] = min (dp [v] [smaller] [1], dp [ls] [i] [1] + dp [rs] [j] [1]);
+            dp [v] [bigger] [1] = min (dp [v] [bigger] [1], dp [ls] [i] [1] - dp [rs] [j] [0]);
+        }
+}
+int main () {
+    scanf ("%s %d %d", ch + 1, &add, &sub);
+    build (); dfs (1);
+    printf ("%d", dp [1] [minn] [0]);
+}
