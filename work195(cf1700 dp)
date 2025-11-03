@@ -1,0 +1,47 @@
+https://codeforces.com/problemset/problem/1561/D1
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=4e6+10;
+const int INF=1e18;
+const int mod=1e9+7;
+#define ll __int128
+
+itn n,p;
+int f[N],sum[N];
+void solve()
+{
+	cin>>n>>p;
+	f[n]=1;
+	sum[n]=1;
+	for(int i=1;i<=n-1;i++)f[i]=0;
+	for(int i=n-1;i>=1;i--)
+	{
+		f[i]=(f[i]+sum[i+1])%p;//通过减法转移到i 
+		for(int j=2;j*i<=n;j++)//通过除法转移到i 
+		{
+			// i*j~i*j+(j-1)
+			f[i]=(f[i]+sum[i*j]-sum[min(i*j+j,n+1)])%p;
+			f[i]=(f[i]+p)%p;
+			 
+		}
+		sum[i]=(sum[i+1]+f[i])%p;
+	}
+	 cout<<f[1]<<endl;
+}
+
+
+signed main() {
+	cin.tie(0)->sync_with_stdio(0);
+	int T=1;
+//	cin>>T;
+
+	while(T--)solve();
+
+	return 0;
+}
