@@ -1,0 +1,76 @@
+https://codeforces.com/problemset/problem/2061/D
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+int  n, m, a[N], b[N];
+multiset <int> sa, sb;
+void solve()
+{
+  itn n,m;
+  cin>>n>>m;
+  int sum=0;
+  for(itn i=1;i<=n;i++)
+  cin>>a[i],sum+=a[i];
+  for(itn i=1;i<=m;i++)
+  cin>>b[i],sum-=b[i];
+   
+  if(sum)
+  {
+    cout<<"No"<<endl;
+	return;	
+  } 
+  sa.clear(),sb.clear();
+  for(int i=1;i<=n;i++)sa.insert(a[i]);
+  for(itn i=1;i<=m;i++)sb.insert(b[i]);
+  
+  while(!sa.empty()&&!sb.empty())
+  {
+  	auto ita=*sa.rbegin();
+	auto itb=*sb.rbegin();
+	if(ita>itb)
+	{
+	 cout<<"No"<<endl;
+	 return;	
+	} 
+	if(ita==itb)
+	{
+	   auto itx = sa.find (ita), ity = sb.find (itb);
+       sa.erase (itx), sb.erase (ity);	
+	}  
+	else
+	{
+		auto ity=sb.find(itb);
+		sb.erase(ity);
+		sb.insert(itb>>1);
+		sb.insert((itb+1)>>1);
+		 
+	}
+  }
+  if(!sa.empty()||!sb.empty())
+  {
+  	cout<<"No"<<endl;
+  	return;
+  }
+  cout<<"Yes"<<endl;
+}
+
+
+signed main() {
+	cin.tie(0)->sync_with_stdio(0);
+	int T=1;
+	cin>>T;
+
+	while(T--)solve();
+
+	return 0;
+}
