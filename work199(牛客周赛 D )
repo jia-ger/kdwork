@@ -1,0 +1,20 @@
+https://ac.nowcoder.com/acm/contest/121300/D
+
+#include<iostream>
+using namespace std;
+int main(){
+    int n;
+    cin>>n;
+    int s[n+1]={0};
+    for(int i=1;i<n;i++){
+        int u,v;
+        cin>>u>>v;
+        s[u]++;
+        s[v]++;
+    }
+    int sum=0;
+    for(int i=1;i<=n;i++){
+        if(s[i]>2)sum+=s[i]-2;
+    }
+    cout<<sum;
+}
