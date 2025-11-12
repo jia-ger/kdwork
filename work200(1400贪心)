@@ -1,0 +1,56 @@
+https://codeforces.com/contest/1967/problem/A
+
+#include <bits/stdc++.h>
+using namespace std;
+#define itn int
+#define icn cin
+#define int long long
+#define endl '\n'
+typedef pair<int,int> PII;
+const int N=2e5+10;
+const int INF=1e18;
+const int mod=998244353;
+#define ll __int128
+
+
+const int ee=1e18+10;
+int ans,t,n,k,a[N];
+int check(int x)
+{
+	int cnt=0,sum=0;
+	for(int i=1;i<=n;i++)
+	{
+		if(a[i]<=x)cnt++,sum+=x-a[i];
+		if(sum>k)return ee; 
+	}
+	return cnt-(k-sum);//最小数的数量-剩余的白纸=经过x轮彻底被清空的数的数量 
+}
+void solve()
+{
+    
+    cin>>n>>k;
+	for(int i=1;i<=n;i++)cin>>a[i];
+	int l=1,r=1e15+10,mid,sum=0;
+	while(l<=r)
+	{
+	 mid=(l+r)>>1;int tmp=check(mid);
+	 if(tmp!=ee)ans=mid,sum=tmp,l=mid+1;
+	 else r=mid-1;
+	}
+	cout<<ans*n-(n-1)+n-sum<<'\n';
+   //ans*n-(n-1)算的是完整循环贡献个数
+   //n-sum 即多出来的数 
+   //他这个排列顺序是先1~n 不够的数字按1~n的顺序往后补 1哪怕有富裕也对结果无影响了 
+}
+
+
+
+signed main(){
+   cin.tie(0)->sync_with_stdio(0);	 
+   int T=1; 
+
+   cin>>T;
+   while(T--)solve();
+   
+    return 0;
+}
