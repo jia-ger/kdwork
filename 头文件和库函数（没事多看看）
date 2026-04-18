@@ -14,3 +14,4 @@ bool cmp(int a, int b) {
 sort(a, a+10,cmp)调用cmp从大到小排序
 https://blog.csdn.net/weixin_45031801/article/details/137522007    //unique<去重函数> 返回的是去重后最后一个不重复元素的地址
 https://blog.csdn.net/weixin_43967256/article/details/127462617    //upper_bound lower_bound (返回大于某数的地址)底层逻辑二分
+https://blog.csdn.net/m0_74036487/article/details/132766096  //csdn常用的一些库函数
